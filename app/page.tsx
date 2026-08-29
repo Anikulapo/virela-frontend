@@ -51,20 +51,20 @@ export default function Home() {
         <div className="relative h-[680px] w-full md:h-[680px] lg:h-[720px]">
           <div className="pointer-events-none absolute inset-0 hidden md:block">
             <div className="absolute left-[3%] top-[5%] h-[250px] w-[230px] rotate-[-8deg] drop-shadow-[0_14px_18px_rgba(0,0,0,0.18)] lg:left-[5%] lg:h-[285px] lg:w-[265px]">
-              <Image src="/browsepage1/Mask group.png" alt="Orange pom pom flower" width={400} height={400} className="h-full w-full object-contain" priority />
-              <Image src="/browsepage1/Star 12.png" alt="" width={72} height={72} className="absolute -right-1 -top-1 h-[60px] w-[60px] lg:-right-0 lg:-top-0 lg:h-[72px] lg:w-[72px]" aria-hidden />
+              <Image src="/browsepage1/mask-group.png" alt="Orange pom pom flower" width={400} height={400} className="h-full w-full object-contain" priority />
+              <Image src="/browsepage1/star-12.png" alt="" width={72} height={72} className="absolute -right-1 -top-1 h-[60px] w-[60px] lg:-right-0 lg:-top-0 lg:h-[72px] lg:w-[72px]" aria-hidden />
             </div>
             <div className="absolute right-[4%] top-[6%] h-[260px] w-[240px] rotate-[6deg] drop-shadow-[0_14px_18px_rgba(0,0,0,0.18)] lg:right-[6%] lg:h-[295px] lg:w-[275px]">
-              <Image src="/browsepage1/Mask group (1).png" alt="Pink tassel lamp" width={400} height={400} className="h-full w-full object-contain" priority />
-              <Image src="/browsepage1/Star 10.png" alt="" width={60} height={60} className="absolute -left-1 -top-1 h-12 w-12 lg:-left-1 lg:-top-1 lg:h-[54px] lg:w-[54px]" aria-hidden />
+              <Image src="/browsepage1/mask-group-1.png" alt="Pink tassel lamp" width={400} height={400} className="h-full w-full object-contain" priority />
+              <Image src="/browsepage1/star-10.png" alt="" width={60} height={60} className="absolute -left-1 -top-1 h-12 w-12 lg:-left-1 lg:-top-1 lg:h-[54px] lg:w-[54px]" aria-hidden />
             </div>
             <div className="absolute bottom-[8%] left-[3%] h-[240px] w-[225px] rotate-[-3deg] drop-shadow-[0_14px_18px_rgba(0,0,0,0.18)] lg:bottom-[9%] lg:left-[4%] lg:h-[270px] lg:w-[250px]">
-              <Image src="/browsepage1/Mask group (2).png" alt="Pink crochet tassels" width={400} height={400} className="h-full w-full object-contain" />
-              <Image src="/browsepage1/Star 11.png" alt="" width={60} height={60} className="absolute -left-1 -top-1 h-12 w-12 lg:-left-1 lg:-top-1 lg:h-[54px] lg:w-[54px]" aria-hidden />
+              <Image src="/browsepage1/mask-group-2.png" alt="Pink crochet tassels" width={400} height={400} className="h-full w-full object-contain" />
+              <Image src="/browsepage1/star-11.png" alt="" width={60} height={60} className="absolute -left-1 -top-1 h-12 w-12 lg:-left-1 lg:-top-1 lg:h-[54px] lg:w-[54px]" aria-hidden />
             </div>
             <div className="absolute bottom-[9%] right-[4%] h-[240px] w-[225px] rotate-[7deg] drop-shadow-[0_14px_18px_rgba(0,0,0,0.18)] lg:bottom-[10%] lg:right-[5%] lg:h-[270px] lg:w-[250px]">
-              <Image src="/browsepage1/Mask group (3).png" alt="Pink pom pom flower" width={400} height={400} className="h-full w-full object-contain" />
-              <Image src="/browsepage1/Star 13.png" alt="" width={72} height={72} className="absolute -right-1 -top-1 h-[60px] w-[60px] lg:-right-0 lg:-top-0 lg:h-[66px] lg:w-[66px]" aria-hidden />
+              <Image src="/browsepage1/mask-group-3.png" alt="Pink pom pom flower" width={400} height={400} className="h-full w-full object-contain" />
+              <Image src="/browsepage1/star-13.png" alt="" width={72} height={72} className="absolute -right-1 -top-1 h-[60px] w-[60px] lg:-right-0 lg:-top-0 lg:h-[66px] lg:w-[66px]" aria-hidden />
             </div>
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-center px-2 text-center">
@@ -84,9 +84,9 @@ export default function Home() {
           </div>
         </div>
         <div className="flex w-full justify-center gap-3 pb-8 md:hidden">
-          <Image src="/browsepage1/Mask group.png" alt="" width={120} height={120} className="h-28 w-28 object-contain" />
-          <Image src="/browsepage1/Mask group (1).png" alt="" width={120} height={120} className="h-28 w-28 object-contain" />
-          <Image src="/browsepage1/Mask group (3).png" alt="" width={120} height={120} className="h-28 w-28 object-contain" />
+          <Image src="/browsepage1/mask-group.png" alt="" width={120} height={120} className="h-28 w-28 object-contain" />
+          <Image src="/browsepage1/mask-group-1.png" alt="" width={120} height={120} className="h-28 w-28 object-contain" />
+          <Image src="/browsepage1/mask-group-3.png" alt="" width={120} height={120} className="h-28 w-28 object-contain" />
         </div>
       </main>
 
@@ -121,7 +121,7 @@ export default function Home() {
             {[1, 1, 1, 1].map((_, i) => (
               <div key={i} className="overflow-hidden rounded-2xl bg-white shadow-sm">
                 <div className="aspect-square overflow-hidden">
-                  <Image src="/browsepage1/Mask group.png" alt="Scrunchie" width={400} height={400} className="h-full w-full object-cover" />
+                  <Image src="/browsepage1/mask-group.png" alt="Scrunchie" width={400} height={400} className="h-full w-full object-cover" />
                 </div>
                 <div className="p-3 text-center">
                   <span className="rounded-full bg-[#E890A8] px-3 py-1 text-xs font-medium text-white">Scrunchie</span>
@@ -145,7 +145,7 @@ export default function Home() {
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="overflow-hidden rounded-2xl bg-white p-2 shadow-sm">
                 <div className="overflow-hidden rounded-xl bg-zinc-100">
-                  <Image src="/browsepage1/Mask group (1).png" alt="Featured" width={400} height={400} className="aspect-square w-full object-cover" />
+                  <Image src="/browsepage1/mask-group-1.png" alt="Featured" width={400} height={400} className="aspect-square w-full object-cover" />
                 </div>
                 <div className="px-2 pb-2 pt-3">
                   <div className="flex items-center justify-between text-xs">
