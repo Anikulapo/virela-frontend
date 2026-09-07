@@ -345,13 +345,21 @@ export default function Home() {
       </main>
 
       {/* Story & Philosophy Section ("A little craft , a lot of heart") */}
-      <div id="story" className="relative overflow-hidden bg-[#FFFCF8] px-6 py-16 md:px-10 md:py-24">
-        {/* Background flowing curves vector overlay */}
-        <div className="pointer-events-none absolute -top-10 left-0 h-[520px] w-full overflow-hidden opacity-[0.28]">
-          <Image src="/browsepage2/vector-1.png" alt="" fill className="object-cover object-[50%_18%]" priority unoptimized />
+      <div id="story" className="relative overflow-hidden bg-[#FFFCF8] px-6 pt-20 pb-16 md:px-10 md:pt-[150px] md:pb-24">
+        {/* Background flowing curves vector overlay matching Figma Vector 1 */}
+        <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[1440px] h-[983px] select-none z-0">
+          <Image
+            src="/browsepage2/vector-1.png"
+            alt=""
+            width={1440}
+            height={983}
+            className="w-full h-full object-contain pointer-events-none"
+            priority
+            unoptimized
+          />
         </div>
 
-        <section className="relative mx-auto max-w-[1280px]">
+        <section className="relative mx-auto max-w-[1280px] z-10">
           <div className="flex flex-col items-center gap-10 md:flex-row md:gap-14 lg:gap-20">
             {/* Story Image Card - Asymmetric Top-Left Arch, No White Border */}
             <div className="relative w-full max-w-[460px] md:w-[45%] lg:w-[42%] shrink-0">
@@ -444,7 +452,7 @@ export default function Home() {
         </section>
 
         {/* Section: FIND YOUR AESTHETIC */}
-        <section className="relative mx-auto mt-20 max-w-[1280px] md:mt-28">
+        <section className="relative mx-auto mt-20 max-w-[1280px] md:mt-[280px] lg:mt-[300px] z-10">
           <h2 className="font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
             FIND YOUR AESTHETIC
           </h2>
