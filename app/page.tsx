@@ -487,6 +487,7 @@ export default function Home() {
                         src={cat.image}
                         alt={cat.label}
                         fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 260px"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         priority
                       />
@@ -499,6 +500,7 @@ export default function Home() {
                           src="/browsepage2/Rectangle 74.png"
                           alt=""
                           fill
+                          sizes="190px"
                           className="object-contain select-none"
                           priority
                         />
@@ -519,7 +521,7 @@ export default function Home() {
       <section id="shop" className="relative overflow-hidden bg-[#FDE8EC] px-6 py-14 md:px-10 md:py-20">
         {/* Background curvy vector */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.3]">
-          <Image src="/browsepage2/vector-1.png" alt="" fill className="object-cover object-center" />
+          <Image src="/browsepage2/vector-1.png" alt="" fill sizes="100vw" className="object-cover object-center" />
         </div>
 
         <div className="relative mx-auto max-w-[1280px]">
@@ -582,6 +584,7 @@ export default function Home() {
                   src="/browsepage2/Rectangle 21.png"
                   alt=""
                   fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 342px"
                   className="object-contain pointer-events-none select-none drop-shadow-[0_12px_24px_rgba(120,40,60,0.12)]"
                   priority
                 />
@@ -607,6 +610,7 @@ export default function Home() {
                         src={product.image}
                         alt={product.name}
                         fill
+                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 22vw, 260px"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         priority
                       />
@@ -648,6 +652,7 @@ export default function Home() {
                       src="/browsepage2/Rectangle 74.png"
                       alt=""
                       fill
+                      sizes="155px"
                       className="object-contain select-none pointer-events-none"
                     />
                     <span className="relative z-10 font-handwriting text-[13px] sm:text-[15px] md:text-[16px] text-white tracking-wide select-none drop-shadow-xs">
