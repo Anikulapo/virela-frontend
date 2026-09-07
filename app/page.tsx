@@ -95,18 +95,34 @@ const FEATURED_PRODUCTS: Product[] = [
   },
 ];
 
-const COLOR_SWATCHES = [
-  { id: "rose", name: "Blush Rose", hex: "#D9A8B5", previewTone: "from-[#FAD0DC]/40 to-[#F2A8BE]/30" },
-  { id: "sage", name: "Sage Cream", hex: "#E8F0E0", previewTone: "from-[#E4EFE0]/40 to-[#D0E2C8]/30" },
-  { id: "plum", name: "Deep Plum", hex: "#5A2A3A", previewTone: "from-[#8B3A52]/30 to-[#5A2A3A]/40" },
-  { id: "ochre", name: "Ochre Sand", hex: "#C9A86A", previewTone: "from-[#F6E3B8]/40 to-[#C9A86A]/30" },
+const FAQS = [
+  {
+    question: "Is every piece really handmade?",
+    answer:
+      "Yes every scrunchie, charm, and bead is shaped by hand in our studio because of that, small variations in color and texture are part of the piece, not a flaw.",
+  },
+  {
+    question: "How long does shipping take?",
+    answer:
+      "Standard domestic orders are crafted and shipped within 3–5 business days. You will receive tracking details as soon as your package is dispatched.",
+  },
+  {
+    question: "Do you have a return policy?",
+    answer:
+      "Because each item is specially handmade, all sales are generally final. However, if your piece arrives damaged or defective, please contact us within 7 days and we will gladly make it right.",
+  },
+  {
+    question: "Can i customize a piece?",
+    answer:
+      "Yes! We love creating bespoke pieces. You can choose your colors, charms, and styling through our Custom order builder.",
+  },
 ];
 
 export default function Home() {
   const [cartCount, setCartCount] = useState(0);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [carouselIndex, setCarouselIndex] = useState(0);
-  const [selectedColor, setSelectedColor] = useState(COLOR_SWATCHES[0]);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [addedItem, setAddedItem] = useState<string | null>(null);
@@ -164,8 +180,8 @@ export default function Home() {
           </Link>
 
           {/* Nav Links */}
-          <nav className="hidden items-center gap-8 text-[14px] font-medium text-[#4A3B42] md:flex">
-            <Link href="/" className="text-[#B85C7A] font-semibold transition-colors hover:text-[#7B284A]">
+          <nav className="hidden items-center gap-8 text-[14px] font-medium text-[#241E20] md:flex">
+            <Link href="/" className="transition-colors hover:text-[#B85C7A]">
               Home
             </Link>
             <Link href="#story" className="transition-colors hover:text-[#B85C7A]">
@@ -174,7 +190,7 @@ export default function Home() {
             <Link href="#shop" className="transition-colors hover:text-[#B85C7A]">
               Shop
             </Link>
-            <Link href="#custom" className="transition-colors hover:text-[#B85C7A]">
+            <Link href="/design" className="transition-colors hover:text-[#B85C7A]">
               Custom
             </Link>
           </nav>
@@ -322,10 +338,10 @@ export default function Home() {
 
             <Link
               href="/login"
-              className="group mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#7B284A] px-9 text-[15px] font-medium italic tracking-wide text-white shadow-lg shadow-[#7B284A]/25 transition hover:bg-[#68203D] hover:scale-105 active:scale-98"
+              className="mt-7 inline-flex h-12 items-center justify-center rounded-full bg-[#7D2947] px-10 text-[24px] sm:text-[26px] font-normal tracking-wide text-white shadow-lg shadow-[#7D2947]/25 transition hover:bg-[#68203D] hover:scale-105 active:scale-98 select-none"
+              style={{ fontFamily: "var(--font-handwriting)" }}
             >
-              <span>Start Order</span>
-              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+              Start Order
             </Link>
           </div>
         </div>
@@ -667,94 +683,109 @@ export default function Home() {
       </section>
 
       {/* WHAT CUSTOMERS ARE SAYING (Testimonials) */}
-      <section className="bg-gradient-to-b from-[#FFF9F2] to-[#FFF4EA] px-6 py-16 md:px-10 md:py-24">
+      <section className="px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-[1280px]">
-          <h2 className="text-center font-serif text-[14px] font-bold uppercase tracking-[0.2em] text-[#1E1618] md:text-[16px]">
+          <h2 className="text-center font-serif text-[20px] sm:text-[24px] md:text-[26px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
             WHAT CUSTOMERS ARE SAYING
           </h2>
 
-          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-8 md:grid-cols-3 md:items-center">
-            {/* Card 1 */}
+          <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3 md:items-center">
+            {/* Card 1 - Asymmetric Arch Top-Left */}
             <div
-              className="relative bg-gradient-to-br from-[#B55B77] to-[#873653] p-7 text-center text-white shadow-[0_12px_28px_rgba(135,54,83,0.25)] transition hover:-translate-y-1"
-              style={{ borderRadius: "34% 24% 30% 38% / 32% 34% 28% 36%" }}
+              className="relative bg-gradient-to-br from-[#8C8E87] via-[#9E6277] to-[#AC4A69] p-8 sm:p-9 text-center text-white shadow-[0_16px_36px_rgba(135,54,83,0.22)] transition hover:-translate-y-1"
+              style={{ borderRadius: "110px 28px 28px 28px" }}
             >
-              {/* Star Sticker Top Left */}
+              {/* Rosette Seal Top Left */}
               <Image
                 src="/browsepage1/star-10.png"
                 alt=""
-                width={36}
-                height={36}
-                className="absolute -left-3 -top-3 h-9 w-9 drop-shadow-md animate-spin-slow"
+                width={48}
+                height={48}
+                className="absolute -left-3 -top-3 h-11 w-11 drop-shadow-md"
                 aria-hidden
               />
-              <p className="font-serif text-[14px] italic leading-relaxed text-white/95">
+              <p
+                className="text-[19px] sm:text-[21px] md:text-[22px] leading-relaxed text-white font-normal"
+                style={{ fontFamily: "var(--font-handwriting)" }}
+              >
                 “it feels like getting a gift from a friend who really knows me”
               </p>
-              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.25em] text-white/80">ADEBISI</p>
-            </div>
-
-            {/* Card 2 (Lower Staggered Position) */}
-            <div
-              className="relative bg-gradient-to-br from-[#A84865] to-[#782842] p-7 text-center text-white shadow-[0_14px_32px_rgba(120,40,66,0.3)] transition hover:-translate-y-1 md:translate-y-4"
-              style={{ borderRadius: "28% 34% 38% 24% / 36% 30% 30% 34%" }}
-            >
-              {/* Star Sticker Top Center */}
-              <Image
-                src="/browsepage1/star-12.png"
-                alt=""
-                width={36}
-                height={36}
-                className="absolute left-1/2 -top-4 -translate-x-1/2 h-9 w-9 drop-shadow-md animate-spin-slow"
-                aria-hidden
-              />
-              <p className="font-serif text-[14px] italic leading-relaxed text-white/95">
-                “it feels like getting a gift from a friend who really knows me”
+              <p className="mt-6 text-[14px] sm:text-[16px] font-bold uppercase tracking-[0.25em] text-white">
+                ADEBISI
               </p>
-              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.25em] text-white/80">ADEBISI</p>
             </div>
 
-            {/* Card 3 */}
+            {/* Card 2 - Staggered Lower Down */}
             <div
-              className="relative bg-gradient-to-br from-[#B55B77] to-[#873653] p-7 text-center text-white shadow-[0_12px_28px_rgba(135,54,83,0.25)] transition hover:-translate-y-1"
-              style={{ borderRadius: "38% 28% 24% 34% / 30% 36% 34% 30%" }}
+              className="relative bg-gradient-to-b from-[#8A3D58] to-[#AF4E70] p-8 sm:p-9 text-center text-white shadow-[0_18px_40px_rgba(120,40,66,0.28)] transition hover:-translate-y-1 md:translate-y-8"
+              style={{ borderRadius: "36px 36px 56px 56px" }}
             >
-              {/* Star Sticker Bottom Right */}
+              {/* Rosette Seal Top Center */}
               <Image
                 src="/browsepage1/star-10.png"
                 alt=""
-                width={36}
-                height={36}
-                className="absolute -bottom-3 -right-3 h-9 w-9 drop-shadow-md animate-spin-slow"
+                width={48}
+                height={48}
+                className="absolute left-1/2 -top-5 -translate-x-1/2 h-11 w-11 drop-shadow-md"
                 aria-hidden
               />
-              <p className="font-serif text-[14px] italic leading-relaxed text-white/95">
+              <p
+                className="text-[19px] sm:text-[21px] md:text-[22px] leading-relaxed text-white font-normal"
+                style={{ fontFamily: "var(--font-handwriting)" }}
+              >
                 “it feels like getting a gift from a friend who really knows me”
               </p>
-              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.25em] text-white/80">ADEBISI</p>
+              <p className="mt-6 text-[14px] sm:text-[16px] font-bold uppercase tracking-[0.25em] text-white">
+                ADEBISI
+              </p>
+            </div>
+
+            {/* Card 3 - Asymmetric Arch Top-Right */}
+            <div
+              className="relative bg-gradient-to-br from-[#8C8E87] via-[#9E6277] to-[#AC4A69] p-8 sm:p-9 text-center text-white shadow-[0_16px_36px_rgba(135,54,83,0.22)] transition hover:-translate-y-1"
+              style={{ borderRadius: "28px 110px 28px 28px" }}
+            >
+              {/* Rosette Seal Bottom Right */}
+              <Image
+                src="/browsepage1/star-10.png"
+                alt=""
+                width={48}
+                height={48}
+                className="absolute -bottom-3 -right-3 h-11 w-11 drop-shadow-md"
+                aria-hidden
+              />
+              <p
+                className="text-[19px] sm:text-[21px] md:text-[22px] leading-relaxed text-white font-normal"
+                style={{ fontFamily: "var(--font-handwriting)" }}
+              >
+                “it feels like getting a gift from a friend who really knows me”
+              </p>
+              <p className="mt-6 text-[14px] sm:text-[16px] font-bold uppercase tracking-[0.25em] text-white">
+                ADEBISI
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Newsletter Signup ("Get first access to new drops") */}
-      <section className="bg-[#FFF4F6] px-6 py-14 text-center md:px-10 md:py-18">
-        <div className="mx-auto max-w-[620px]">
-          <h2 className="font-serif text-[20px] font-bold text-[#B85C7A] md:text-[24px]">
+      <section className="px-6 py-14 text-center md:px-10 md:py-20">
+        <div className="mx-auto max-w-[640px]">
+          <h2 className="font-serif text-[26px] sm:text-[30px] md:text-[34px] font-bold text-[#B84A6E]">
             Get first access to new drops
           </h2>
-          <p className="mx-auto mt-2.5 max-w-[440px] text-[13px] leading-relaxed text-[#6A4D57] md:text-[14px]">
-            Join the inner circle for early product drops , restock alerts and the occasional studio story
+          <p className="mx-auto mt-3 max-w-[500px] text-[15px] sm:text-[16px] leading-relaxed text-[#241E20]">
+            Join the inner circle for early product drops ,<br className="hidden sm:inline" /> restock alerts and the occasional studio story
           </p>
 
           {subscribed ? (
-            <div className="mx-auto mt-6 max-w-[380px] rounded-full bg-[#DCFCE7] py-2.5 px-4 text-xs font-semibold text-[#15803D] border border-[#86EFAC]">
+            <div className="mx-auto mt-6 max-w-[420px] rounded-full bg-[#DCFCE7] py-3 px-5 text-sm font-semibold text-[#15803D] border border-[#86EFAC]">
               ✨ You&apos;re on the list! Welcome to the inner circle.
             </div>
           ) : (
             <form
               onSubmit={handleSubscribe}
-              className="mx-auto mt-6 flex max-w-[400px] items-center overflow-hidden rounded-full border border-[#E5A0A8] bg-white p-1 shadow-xs transition-shadow focus-within:ring-2 focus-within:ring-[#B85C7A]/40"
+              className="mx-auto mt-8 flex max-w-[500px] items-center rounded-full border-[2.5px] border-[#832C4A] bg-white pl-5 pr-1 py-1 shadow-xs transition-shadow focus-within:ring-2 focus-within:ring-[#832C4A]/30"
             >
               <input
                 type="email"
@@ -762,11 +793,11 @@ export default function Home() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email address"
-                className="flex-1 bg-transparent px-4 py-2 text-xs text-[#241E20] outline-none placeholder:text-zinc-400"
+                className="flex-1 bg-transparent pr-3 py-2 text-[14px] sm:text-[15px] text-[#241E20] outline-none placeholder:text-[#7E787A]"
               />
               <button
                 type="submit"
-                className="rounded-full bg-[#7B284A] px-5 py-2 text-xs font-medium text-white transition hover:bg-[#68203D] cursor-pointer"
+                className="rounded-full bg-[#832C4A] px-7 py-2.5 text-[15px] sm:text-[16px] font-medium text-white transition hover:bg-[#6E233C] active:scale-98 cursor-pointer shrink-0 select-none"
               >
                 Subscribe
               </button>
@@ -775,196 +806,176 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MAKE IT YOURS (Custom Commissions Builder) */}
-      <section id="custom" className="bg-white px-6 py-14 md:px-10 md:py-20">
-        <div className="mx-auto flex max-w-[1280px] flex-col gap-10 md:flex-row md:items-center md:justify-between">
-          {/* Left Column: Copy, Swatches & CTA */}
-          <div className="w-full md:w-[50%] lg:w-[46%]">
-            <h2 className="font-serif text-[15px] font-bold uppercase tracking-[0.2em] text-[#1E1618] md:text-[17px]">
-              MAKE IT YOURS
-            </h2>
-            <p className="mt-3 max-w-[440px] text-[13.5px] leading-relaxed text-[#5A3A45] md:text-[14.5px]">
-              Pick your palette , add a charm . Custom commissions are hand-finished just for you , the same
-              craftsmanship shaped around your story.
-            </p>
+      {/* Frequently Asked Questions (FAQ) */}
+      <section id="faq" className="px-6 py-14 md:px-10 md:py-20">
+        <div className="mx-auto max-w-[880px]">
+          <h2 className="text-center font-serif text-[28px] sm:text-[34px] md:text-[38px] font-bold text-[#B84A6E]">
+            Frequently Asked Questions
+          </h2>
 
-            {/* Interactive Color Palette Swatches */}
-            <div className="mt-5">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-[#8C6D77] mb-2">
-                Selected Tone: <span className="text-[#7B284A]">{selectedColor.name}</span>
-              </p>
-              <div className="flex items-center gap-3">
-                {COLOR_SWATCHES.map((swatch) => (
+          <div className="mt-12 border-t border-[#D49BAA]/60">
+            {FAQS.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div key={idx} className="border-b border-[#D49BAA]/60 py-5 sm:py-6">
                   <button
-                    key={swatch.id}
-                    onClick={() => setSelectedColor(swatch)}
-                    title={swatch.name}
-                    aria-label={`Select ${swatch.name} palette`}
-                    className={`h-7 w-7 rounded-full transition-all duration-200 cursor-pointer ${
-                      selectedColor.id === swatch.id
-                        ? "scale-115 ring-2 ring-[#7B284A] ring-offset-2"
-                        : "hover:scale-110 ring-1 ring-black/10"
-                    }`}
-                    style={{ backgroundColor: swatch.hex }}
-                  />
-                ))}
-              </div>
-            </div>
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="flex w-full items-center justify-between gap-4 text-left cursor-pointer group select-none"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="font-serif text-[18px] sm:text-[21px] md:text-[23px] font-medium text-[#7A2846] group-hover:text-[#9E365C] transition-colors">
+                      {faq.question}
+                    </span>
+                    {/* Rosette Chevron Badge */}
+                    <div className="relative flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center transition-transform group-hover:scale-105">
+                      <Image
+                        src="/browsepage1/star-10.png"
+                        alt=""
+                        fill
+                        className={`object-contain select-none transition-all duration-300 ${
+                          isOpen ? "brightness-75 contrast-125" : "brightness-105"
+                        }`}
+                      />
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke={isOpen ? "#FFFFFF" : "#1E1618"}
+                        strokeWidth="2.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={`relative z-10 transition-transform duration-300 ${
+                          isOpen ? "" : "rotate-180"
+                        }`}
+                      >
+                        <polyline points="18 15 12 9 6 15" />
+                      </svg>
+                    </div>
+                  </button>
 
-            {/* CTA Button */}
-            <Link
-              href="/design"
-              className="mt-6 inline-flex rounded-full bg-[#7B284A] px-7 py-2.5 text-xs font-medium tracking-wide text-white shadow-md shadow-[#7B284A]/20 transition hover:bg-[#68203D] hover:scale-105 active:scale-98"
-            >
-              Start a Custom Order
-            </Link>
-          </div>
-
-          {/* Right Column: Custom Commission Arch Preview Card */}
-          <div className="w-full md:w-[48%] lg:w-[50%]">
-            <div
-              className={`relative h-[240px] overflow-hidden bg-gradient-to-br ${selectedColor.previewTone} p-4 shadow-[0_12px_32px_rgba(120,40,60,0.08)] border border-[#7B284A]/10 md:h-[280px] transition-all duration-500`}
-              style={{ borderRadius: "88px 24px 24px 20px / 68px 24px 24px 20px" }}
-            >
-              <div className="relative h-full w-full rounded-[64px_16px_16px_16px] bg-white/70 backdrop-blur-xs flex items-center justify-center overflow-hidden">
-                <Image
-                  src="/browsepage2/scrunchie-aesthetic.png"
-                  alt="Custom commission preview"
-                  width={340}
-                  height={340}
-                  className="h-full w-full object-contain p-4 mix-blend-multiply transition-transform duration-700 hover:scale-110"
-                />
-                <div className="absolute bottom-3 right-4 rounded-full bg-[#7B284A]/90 backdrop-blur-xs px-3.5 py-1 text-[11px] font-medium text-white shadow-sm">
-                  ✨ Custom Made
+                  {isOpen && (
+                    <div className="mt-3 pr-12 text-[14px] sm:text-[15px] md:text-[16px] leading-relaxed text-[#5A323E]">
+                      <p>{faq.answer}</p>
+                    </div>
+                  )}
                 </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Rich Plum Footer */}
+      {/* Rich Plum Footer with Giant Wordmark */}
       <footer
         id="contact"
-        className="relative bg-[#84304E] px-6 pt-14 pb-8 text-white md:px-10 md:pt-18 md:pb-12"
-        style={{ borderRadius: "40px 40px 0 0" }}
+        className="relative bg-[#9B4461] px-6 pt-16 pb-4 text-white md:px-10 md:pt-20 rounded-t-[48px] md:rounded-t-[64px] overflow-hidden"
       >
-        {/* Scalloped Star Emblem on Top Edge */}
-        <div className="absolute -top-6 left-1/2 -translate-x-1/2">
-          <div className="h-12 w-12 rounded-full bg-[#9E4564] p-1 shadow-lg border-2 border-white/20 flex items-center justify-center">
-            <Image
-              src="/browsepage1/star-10.png"
-              alt=""
-              width={40}
-              height={40}
-              className="h-9 w-9 object-contain animate-spin-slow"
-              aria-hidden
-            />
-          </div>
+        {/* Rosette Seal on Top Center Edge */}
+        <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+          <Image
+            src="/browsepage1/star-10.png"
+            alt=""
+            width={56}
+            height={56}
+            className="h-14 w-14 object-contain drop-shadow-md"
+          />
         </div>
 
-        {/* Footer Navigation & Brand Row */}
-        <div className="mx-auto flex max-w-[1280px] flex-col gap-10 md:flex-row md:justify-between md:items-start">
+        {/* Top Row: Brand, Centered Links, Scalloped Social Badges */}
+        <div className="mx-auto flex max-w-[1280px] flex-col gap-10 md:flex-row md:items-start md:justify-between z-10 relative">
           {/* Brand Intro */}
-          <div className="max-w-[320px]">
-            <p className="font-serif text-2xl font-bold tracking-wide">Virela</p>
-            <p className="mt-3 text-[12.5px] leading-relaxed text-white/80">
-              Aesthetic accessories and creative handmades for people who love beauty in the details.
+          <div className="max-w-[340px]">
+            <h3 className="font-serif text-[32px] font-bold tracking-tight text-white">Virela</h3>
+            <p className="mt-3 text-[14px] leading-relaxed text-white/90">
+              Aesthetic accessories and creative handmades for people who love beauty in the details
             </p>
           </div>
 
-          {/* Links & Socials */}
-          <div className="flex gap-16 text-xs">
-            {/* Quick Links */}
-            <div className="flex flex-col gap-2.5">
-              <span className="font-semibold text-white/60 uppercase tracking-widest text-[10px] mb-1">Explore</span>
-              <Link href="/" className="text-white/90 hover:text-white hover:underline transition-colors">
-                Home
-              </Link>
-              <Link href="#story" className="text-white/90 hover:text-white hover:underline transition-colors">
-                Our Story
-              </Link>
-              <Link href="#shop" className="text-white/90 hover:text-white hover:underline transition-colors">
-                Shop
-              </Link>
-              <Link href="#contact" className="text-white/90 hover:text-white hover:underline transition-colors">
-                Contact
-              </Link>
-            </div>
+          {/* Centered Navigation Links */}
+          <div className="flex flex-col gap-3 text-[15px] font-medium text-white/95 md:items-center">
+            <Link href="/" className="hover:text-white hover:underline transition-colors">
+              Home
+            </Link>
+            <Link href="#story" className="hover:text-white hover:underline transition-colors">
+              Our Story
+            </Link>
+            <Link href="#shop" className="hover:text-white hover:underline transition-colors">
+              Shop
+            </Link>
+            <Link href="#faq" className="hover:text-white hover:underline transition-colors">
+              FAQ
+            </Link>
+            <Link href="#contact" className="hover:text-white hover:underline transition-colors">
+              Contact
+            </Link>
+          </div>
 
-            {/* Social Links */}
-            <div className="flex flex-col gap-2.5">
-              <span className="font-semibold text-white/60 uppercase tracking-widest text-[10px] mb-1">Connect</span>
-              <div className="flex gap-2">
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="X (Twitter)"
-                  className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-xs font-bold text-[#84304E] shadow-sm transition hover:bg-white/90 hover:scale-105"
-                >
-                  𝕏
-                </a>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Instagram"
-                  className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-xs font-bold text-[#84304E] shadow-sm transition hover:bg-white/90 hover:scale-105"
-                >
-                  IG
-                </a>
-                <a
-                  href="https://wa.me"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="WhatsApp"
-                  className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-xs font-bold text-[#84304E] shadow-sm transition hover:bg-white/90 hover:scale-105"
-                >
-                  WA
-                </a>
-              </div>
-            </div>
+          {/* 3 Vertically Stacked Scalloped Social Badges */}
+          <div className="flex flex-row md:flex-col gap-3.5 items-start">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="X (Twitter)"
+              className="relative flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <div
+                className="absolute inset-0 bg-white shadow-xs rounded-xl"
+                style={{
+                  clipPath: "url(#scrunchie-clip)",
+                  WebkitClipPath: "url(#scrunchie-clip)",
+                }}
+              />
+              <span className="relative z-10 text-[#1E1618] font-bold text-[16px]">𝕏</span>
+            </a>
+
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="relative flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <div
+                className="absolute inset-0 bg-white shadow-xs rounded-xl"
+                style={{
+                  clipPath: "url(#scrunchie-clip)",
+                  WebkitClipPath: "url(#scrunchie-clip)",
+                }}
+              />
+              <span className="relative z-10 text-[#1E1618] font-bold text-[16px]">IG</span>
+            </a>
+
+            <a
+              href="https://wa.me"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="WhatsApp"
+              className="relative flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <div
+                className="absolute inset-0 bg-white shadow-xs rounded-xl"
+                style={{
+                  clipPath: "url(#scrunchie-clip)",
+                  WebkitClipPath: "url(#scrunchie-clip)",
+                }}
+              />
+              <span className="relative z-10 text-[#1E1618] font-bold text-[16px]">WA</span>
+            </a>
           </div>
         </div>
 
-        {/* Large Decorative Wordmark */}
-        <div className="relative mx-auto mt-12 max-w-[1280px] overflow-hidden select-none text-center">
-          {/* Background Sparkles in Wordmark */}
-          <div className="relative inline-block">
-            <Image
-              src="/browsepage1/star-12.png"
-              alt=""
-              width={60}
-              height={60}
-              className="absolute left-[2%] top-[30%] h-10 w-10 md:h-14 md:w-14 animate-spin-slow opacity-80"
-              aria-hidden
-            />
-            <Image
-              src="/browsepage1/star-13.png"
-              alt=""
-              width={60}
-              height={60}
-              className="absolute left-[38%] top-[10%] h-8 w-8 md:h-12 md:w-12 animate-spin-slow opacity-80"
-              aria-hidden
-            />
-            <Image
-              src="/browsepage1/star-11.png"
-              alt=""
-              width={60}
-              height={60}
-              className="absolute right-[5%] top-[25%] h-10 w-10 md:h-14 md:w-14 animate-spin-slow opacity-80"
-              aria-hidden
-            />
-            <p className="font-serif text-[84px] font-bold leading-none tracking-tight text-white/95 sm:text-[120px] md:text-[160px] lg:text-[200px] drop-shadow-sm">
-              Virela
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom copyright line */}
-        <div className="mx-auto mt-6 max-w-[1280px] border-t border-white/10 pt-4 text-center text-[11px] text-white/60">
-          © {new Date().getFullYear()} VIRELA. All rights reserved. Handcrafted with love.
+        {/* Giant Handwritten Script Wordmark Banner */}
+        <div className="relative mx-auto mt-10 w-full max-w-[1440px] select-none pointer-events-none overflow-hidden flex justify-center">
+          <Image
+            src="/browsepage2/footer-wordmark.png"
+            alt="Virela"
+            width={1440}
+            height={473}
+            className="w-full h-auto max-h-[460px] object-contain object-bottom pointer-events-none"
+            priority
+          />
         </div>
       </footer>
     </div>
