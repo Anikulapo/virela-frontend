@@ -15,31 +15,31 @@ interface Product {
 
 const CATEGORIES = [
   {
-    id: "all",
+    id: "s1",
     label: "Scrunchie",
     categoryName: "Scrunchies",
     image: "/browsepage2/scrunchie-aesthetic.png",
     borderRadius: "26% 74% 34% 66% / 36% 26% 74% 64%",
   },
   {
-    id: "bags",
-    label: "Bags & Pouches",
-    categoryName: "Bags & Pouches",
-    image: "/browsepage1/mask-group-2.png",
+    id: "s2",
+    label: "Scrunchie",
+    categoryName: "Scrunchies",
+    image: "/browsepage2/scrunchie-aesthetic.png",
     borderRadius: "68% 32% 28% 72% / 28% 66% 34% 72%",
   },
   {
-    id: "flowers",
-    label: "Flower Crafts",
-    categoryName: "Flower Charms",
-    image: "/browsepage1/mask-group.png",
+    id: "s3",
+    label: "Scrunchie",
+    categoryName: "Scrunchies",
+    image: "/browsepage2/scrunchie-aesthetic.png",
     borderRadius: "32% 68% 72% 28% / 66% 34% 28% 72%",
   },
   {
-    id: "jewelry",
-    label: "Jewelry & Tassels",
-    categoryName: "Jewelry & Tassels",
-    image: "/browsepage1/mask-group-1.png",
+    id: "s4",
+    label: "Scrunchie",
+    categoryName: "Scrunchies",
+    image: "/browsepage2/scrunchie-aesthetic.png",
     borderRadius: "28% 72% 68% 32% / 36% 72% 28% 64%",
   },
 ];
@@ -47,51 +47,51 @@ const CATEGORIES = [
 const FEATURED_PRODUCTS: Product[] = [
   {
     id: "p1",
-    name: "Grandeur Bag",
-    category: "Bags & Pouches",
-    price: 24,
-    image: "/browsepage1/mask-group-1.png",
-    borderRadius: "26% 74% 38% 62% / 42% 26% 74% 58%",
+    name: "Scrunchie",
+    category: "Scrunchies",
+    price: 22,
+    image: "/browsepage2/ad 4.png",
+    borderRadius: "",
   },
   {
     id: "p2",
-    name: "Petal Scrunchie",
+    name: "Scrunchie",
     category: "Scrunchies",
-    price: 16,
-    image: "/browsepage2/scrunchie-aesthetic.png",
-    borderRadius: "68% 32% 28% 72% / 32% 68% 32% 68%",
+    price: 22,
+    image: "/browsepage2/ad 4.png",
+    borderRadius: "",
   },
   {
     id: "p3",
-    name: "Pastel Bloom",
-    category: "Flower Charms",
-    price: 18,
-    image: "/browsepage1/mask-group-3.png",
-    borderRadius: "32% 68% 62% 38% / 58% 38% 62% 42%",
+    name: "Scrunchie",
+    category: "Scrunchies",
+    price: 22,
+    image: "/browsepage2/ad 4.png",
+    borderRadius: "",
   },
   {
     id: "p4",
-    name: "Sunny Blossom",
-    category: "Flower Charms",
-    price: 18,
-    image: "/browsepage1/mask-group.png",
-    borderRadius: "42% 58% 28% 72% / 28% 42% 58% 72%",
+    name: "Scrunchie",
+    category: "Scrunchies",
+    price: 22,
+    image: "/browsepage2/ad 4.png",
+    borderRadius: "",
   },
   {
     id: "p5",
-    name: "Rose Woven Pouch",
-    category: "Bags & Pouches",
+    name: "Scrunchie",
+    category: "Scrunchies",
     price: 22,
-    image: "/browsepage1/mask-group-2.png",
-    borderRadius: "36% 64% 44% 56% / 48% 32% 68% 52%",
+    image: "/browsepage2/ad 4.png",
+    borderRadius: "",
   },
   {
     id: "p6",
-    name: "Berry Tassel Charm",
-    category: "Jewelry & Tassels",
-    price: 14,
-    image: "/browsepage1/mask-group-1.png",
-    borderRadius: "62% 38% 32% 68% / 34% 64% 36% 66%",
+    name: "Scrunchie",
+    category: "Scrunchies",
+    price: 22,
+    image: "/browsepage2/ad 4.png",
+    borderRadius: "",
   },
 ];
 
@@ -136,6 +136,15 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#FAF4F0] via-[#FFFEE8] to-[#FAF2EE] text-[#241E20] selection:bg-[#F2BAC9] selection:text-[#52172C]">
+      {/* Global SVG Clip Paths */}
+      <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+        <defs>
+          <clipPath id="scrunchie-clip" clipPathUnits="objectBoundingBox">
+            <path d="M 0.0000,0.2089 C 0.0000,0.1074 0.1251,0.0451 0.2500,0.0451 C 0.3476,0.0451 0.4002,-0.0001 0.5000,0.0000 C 0.5645,0.0000 0.6502,0.0191 0.7023,0.0324 C 0.7330,0.0402 0.7656,0.0421 0.7969,0.0365 C 0.9012,0.0178 1.0000,0.0822 1.0000,0.1690 V 0.2290 C 1.0000,0.2430 0.9980,0.2568 0.9945,0.2705 C 0.9829,0.3152 0.9569,0.4236 0.9569,0.5000 C 0.9569,0.5763 0.9828,0.6846 0.9944,0.7294 C 0.9980,0.7431 1.0000,0.7571 1.0000,0.7712 V 0.8303 C 1.0000,0.9177 0.9009,0.9829 0.7956,0.9648 C 0.7651,0.9595 0.7334,0.9613 0.7034,0.9687 C 0.6514,0.9815 0.5649,1.0000 0.5000,1.0000 C 0.4003,1.0001 0.3497,0.9567 0.2500,0.9567 C 0.1248,0.9567 0.0000,0.8932 0.0000,0.7915 V 0.7656 C 0.0000,0.7552 0.0012,0.7449 0.0034,0.7347 C 0.0123,0.6938 0.0354,0.5795 0.0354,0.5000 C 0.0354,0.4204 0.0122,0.3060 0.0034,0.2651 C 0.0012,0.2550 0.0000,0.2448 0.0000,0.2346 V 0.2089 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+
       {/* Toast Notification */}
       {addedItem && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-[#7B284A] px-5 py-2.5 text-xs font-medium text-white shadow-xl shadow-[#7B284A]/30 animate-bounce">
@@ -336,17 +345,10 @@ export default function Home() {
       </main>
 
       {/* Story & Philosophy Section ("A little craft , a lot of heart") */}
-      <div id="story" className="relative overflow-hidden bg-gradient-to-b from-[#FFF7F0] via-[#FFF9F2] to-[#FFF5F0] px-6 py-16 md:px-10 md:py-24">
+      <div id="story" className="relative overflow-hidden bg-[#FFFCF8] px-6 py-16 md:px-10 md:py-24">
         {/* Background flowing curves vector overlay */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <Image
-            src="/browsepage2/vector-1.png"
-            alt=""
-            fill
-            className="object-cover object-top opacity-95"
-            priority
-            unoptimized
-          />
+        <div className="pointer-events-none absolute -top-10 left-0 h-[520px] w-full overflow-hidden opacity-[0.28]">
+          <Image src="/browsepage2/vector-1.png" alt="" fill className="object-cover object-[50%_18%]" priority unoptimized />
         </div>
 
         <section className="relative mx-auto max-w-[1280px]">
@@ -403,15 +405,11 @@ export default function Home() {
               <div className="mt-8 flex flex-wrap items-center gap-7 md:gap-10">
                 {/* Specially Handmade */}
                 <div className="flex items-center gap-3">
-                  <div className="relative flex h-11 w-9 items-center justify-center shrink-0 drop-shadow-xs transition-transform hover:scale-105">
-                    <Image
-                      src="/browsepage2/badge-shape-2.png"
-                      alt=""
-                      fill
-                      className="object-contain"
-                    />
+                  <div
+                    className="relative flex h-11 w-9 items-center justify-center shrink-0 bg-[#7B2D4B] drop-shadow-xs transition-transform hover:scale-105"
+                    style={{ borderRadius: "14px 10px 10px 14px / 18px 14px 14px 10px" }}
+                  >
                     <span className="relative z-10 text-white">
-                      {/* Hand with Floating Heart Icon */}
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M12 4.2a2.3 2.3 0 0 0-3.25 0L8 5l-.75-.8A2.3 2.3 0 0 0 4 7.45L8 11.5l4-4.05A2.3 2.3 0 0 0 12 4.2z" fill="none" />
                         <path d="M2 13.5h5a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H3.5" />
@@ -419,22 +417,16 @@ export default function Home() {
                       </svg>
                     </span>
                   </div>
-                  <span className="font-handwriting text-[17px] sm:text-[18px] md:text-[20px] text-[#742644] tracking-wide">
-                    Specially Handmade
-                  </span>
+                  <span className="font-handwriting text-[17px] sm:text-[18px] md:text-[20px] text-[#742644] tracking-wide">Specially Handmade</span>
                 </div>
 
                 {/* Aesthetic Packaging */}
                 <div className="flex items-center gap-3">
-                  <div className="relative flex h-11 w-9 items-center justify-center shrink-0 drop-shadow-xs transition-transform hover:scale-105">
-                    <Image
-                      src="/browsepage2/badge-shape-2.png"
-                      alt=""
-                      fill
-                      className="object-contain"
-                    />
+                  <div
+                    className="relative flex h-11 w-9 items-center justify-center shrink-0 bg-[#7B2D4B] drop-shadow-xs transition-transform hover:scale-105"
+                    style={{ borderRadius: "10px 14px 14px 10px / 14px 18px 10px 14px" }}
+                  >
                     <span className="relative z-10 text-white">
-                      {/* Gift Box / Redeem SVG */}
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 12 20 22 4 22 4 12" />
                         <rect width="20" height="5" x="2" y="7" rx="1" />
@@ -444,9 +436,7 @@ export default function Home() {
                       </svg>
                     </span>
                   </div>
-                  <span className="font-handwriting text-[17px] sm:text-[18px] md:text-[20px] text-[#742644] tracking-wide">
-                    Aesthetic Packaging
-                  </span>
+                  <span className="font-handwriting text-[17px] sm:text-[18px] md:text-[20px] text-[#742644] tracking-wide">Aesthetic Packaging</span>
                 </div>
               </div>
             </div>
@@ -455,52 +445,62 @@ export default function Home() {
 
         {/* Section: FIND YOUR AESTHETIC */}
         <section className="relative mx-auto mt-20 max-w-[1280px] md:mt-28">
-          <h2 className="font-serif text-[14px] font-bold uppercase tracking-[0.2em] text-[#1E1618] md:text-[16px]">
+          <h2 className="font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
             FIND YOUR AESTHETIC
           </h2>
 
-          {/* 4 Organic Shaped Category Cards */}
-          <div className="mt-7 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-            {CATEGORIES.map((cat) => {
+          {/* 4 Organic Scalloped Masked Category Cards */}
+          <div className="mt-8 grid grid-cols-2 gap-5 sm:gap-6 md:grid-cols-4 md:gap-7">
+            {CATEGORIES.map((cat, idx) => {
               const isSelected = activeCategory === cat.id;
               return (
-                <button
-                  key={cat.id}
+                <div
+                  key={cat.id || idx}
                   onClick={() => setActiveCategory(cat.id === activeCategory ? "all" : cat.id)}
-                  className={`group relative bg-white p-2.5 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(120,40,60,0.18)] ${
-                    isSelected ? "ring-2 ring-[#B85C7A] shadow-[0_12px_28px_rgba(120,40,60,0.2)]" : "shadow-[0_8px_24px_rgba(120,40,60,0.1)]"
-                  }`}
-                  style={{ borderRadius: cat.borderRadius }}
+                  className="group relative flex flex-col items-center cursor-pointer transition-transform duration-300 hover:-translate-y-1.5"
                 >
-                  <div
-                    className="relative aspect-square overflow-hidden bg-[#FFF8F5]"
-                    style={{ borderRadius: cat.borderRadius }}
-                  >
-                    <Image
-                      src={cat.image}
-                      alt={cat.label}
-                      width={400}
-                      height={400}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                  {/* Card Container with Rectangle 9 Mask and Soft Shadow */}
+                  <div className="relative w-full aspect-[260/320] drop-shadow-[0_12px_24px_rgba(120,40,60,0.12)] transition-all duration-300 group-hover:drop-shadow-[0_18px_32px_rgba(120,40,60,0.22)]">
+                    {/* Masked Card Photo with Rectangle 9 */}
                     <div
-                      className="pointer-events-none absolute inset-0 ring-1 ring-black/5"
-                      style={{ borderRadius: cat.borderRadius }}
-                    />
-                  </div>
-
-                  {/* Category Pill Badge */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 md:bottom-5">
-                    <span
-                      className={`whitespace-nowrap px-4 py-1.5 text-[11.5px] font-medium tracking-wide text-white shadow-sm transition-colors md:px-5 ${
-                        isSelected ? "bg-[#7B284A]" : "bg-[#C65A7A] group-hover:bg-[#B84E6E]"
-                      }`}
-                      style={{ borderRadius: "999px" }}
+                      className="relative w-full h-full overflow-hidden bg-white"
+                      style={{
+                        clipPath: "url(#scrunchie-clip)",
+                        WebkitClipPath: "url(#scrunchie-clip)",
+                        maskImage: "url('/browsepage2/Rectangle 9.png')",
+                        WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
+                        maskSize: "100% 100%",
+                        WebkitMaskSize: "100% 100%",
+                        maskRepeat: "no-repeat",
+                        WebkitMaskRepeat: "no-repeat",
+                      }}
                     >
-                      {cat.label}
-                    </span>
+                      <Image
+                        src={cat.image}
+                        alt={cat.label}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        priority
+                      />
+                    </div>
+
+                    {/* Bottom Pill Badge: Rectangle 74 for the bg of the scrunchie text */}
+                    <div className="absolute bottom-[22px] sm:bottom-[28px] left-1/2 -translate-x-1/2 z-20 w-[84%] max-w-[190px] pointer-events-none drop-shadow-xs transition-transform duration-300 group-hover:scale-105">
+                      <div className="relative w-full aspect-[223/44] flex items-center justify-center">
+                        <Image
+                          src="/browsepage2/Rectangle 74.png"
+                          alt=""
+                          fill
+                          className="object-contain select-none"
+                          priority
+                        />
+                        <span className="relative z-10 font-handwriting text-[17px] sm:text-[18px] md:text-[20px] text-white tracking-wide select-none drop-shadow-xs -translate-y-[1px]">
+                          {cat.label}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </button>
+                </div>
               );
             })}
           </div>
@@ -517,60 +517,134 @@ export default function Home() {
         <div className="relative mx-auto max-w-[1280px]">
           {/* Header & Carousel Buttons */}
           <div className="flex items-center justify-between">
-            <h2 className="font-serif text-[14px] font-bold uppercase tracking-[0.2em] text-[#1E1618] md:text-[16px]">
+            <h2 className="font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
               FEATURED PIECES
             </h2>
-            <div className="flex gap-2">
+            <div className="flex items-center gap-3">
               <button
                 onClick={prevSlide}
                 aria-label="Previous featured items"
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-base font-bold text-[#7B284A] shadow-sm transition hover:bg-[#FAF0F2] active:scale-95 cursor-pointer"
+                className="relative flex h-10 w-8 sm:h-11 sm:w-9 items-center justify-center bg-white text-[#1E1618] drop-shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+                style={{
+                  clipPath: "url(#scrunchie-clip)",
+                  WebkitClipPath: "url(#scrunchie-clip)",
+                  maskImage: "url('/browsepage2/Rectangle 9.png')",
+                  WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
+                  maskSize: "100% 100%",
+                  WebkitMaskSize: "100% 100%",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskRepeat: "no-repeat",
+                }}
               >
-                ‹
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
               </button>
               <button
                 onClick={nextSlide}
                 aria-label="Next featured items"
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-base font-bold text-[#7B284A] shadow-sm transition hover:bg-[#FAF0F2] active:scale-95 cursor-pointer"
+                className="relative flex h-10 w-8 sm:h-11 sm:w-9 items-center justify-center bg-white text-[#1E1618] drop-shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+                style={{
+                  clipPath: "url(#scrunchie-clip)",
+                  WebkitClipPath: "url(#scrunchie-clip)",
+                  maskImage: "url('/browsepage2/Rectangle 9.png')",
+                  WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
+                  maskSize: "100% 100%",
+                  WebkitMaskSize: "100% 100%",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskRepeat: "no-repeat",
+                }}
               >
-                ›
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
               </button>
             </div>
           </div>
 
           {/* Product Grid */}
-          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-            {FEATURED_PRODUCTS.slice(carouselIndex, carouselIndex + 4).map((product) => (
+          <div className="mt-8 grid grid-cols-2 gap-5 sm:gap-6 md:grid-cols-4 md:gap-7">
+            {FEATURED_PRODUCTS.slice(carouselIndex, carouselIndex + 4).map((product, idx) => (
               <div
-                key={product.id}
-                className="group flex flex-col justify-between bg-white p-2.5 shadow-sm transition-all duration-300 hover:shadow-md md:p-3"
-                style={{ borderRadius: product.borderRadius }}
+                key={`${product.id}-${idx}`}
+                className="group relative flex flex-col items-center w-full aspect-[342/493] transition-transform duration-300 hover:-translate-y-1.5"
               >
-                <div
-                  className="relative overflow-hidden bg-[#2D0A16] aspect-square"
-                  style={{ borderRadius: product.borderRadius }}
-                >
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    width={400}
-                    height={400}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-95"
-                  />
-                </div>
+                {/* Outer White Background Card (Rectangle 21) */}
+                <Image
+                  src="/browsepage2/Rectangle 21.png"
+                  alt=""
+                  fill
+                  className="object-contain pointer-events-none select-none drop-shadow-[0_12px_24px_rgba(120,40,60,0.12)]"
+                  priority
+                />
 
-                <div className="px-2 pb-2 pt-3">
-                  <div className="flex items-center justify-between text-xs font-semibold text-[#1E1618]">
-                    <span>{product.name}</span>
-                    <span className="text-[#7B284A]">${product.price}</span>
+                {/* Content inside the White Card */}
+                <div className="relative z-10 flex flex-col items-center justify-between w-full h-full pt-[5%] pb-[4%] px-[5%]">
+                  {/* Inner Masked Product Image (Rectangle 9 mask) */}
+                  <div className="relative w-[90%] aspect-[260/320] drop-shadow-xs mt-1">
+                    <div
+                      className="relative w-full h-full overflow-hidden bg-[#2D0A16]"
+                      style={{
+                        clipPath: "url(#scrunchie-clip)",
+                        WebkitClipPath: "url(#scrunchie-clip)",
+                        maskImage: "url('/browsepage2/Rectangle 9.png')",
+                        WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
+                        maskSize: "100% 100%",
+                        WebkitMaskSize: "100% 100%",
+                        maskRepeat: "no-repeat",
+                        WebkitMaskRepeat: "no-repeat",
+                      }}
+                    >
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        priority
+                      />
+                    </div>
                   </div>
 
+                  {/* Product Title and Price according to Figma format */}
+                  <div className="w-[88%] flex items-center justify-between px-1 text-[#1E1618] select-none -mt-1">
+                    <span
+                      className="font-handwriting text-[18px] sm:text-[22px] md:text-[25px] lg:text-[28px] font-normal leading-[108%] tracking-[0%] select-none"
+                      style={{
+                        fontFamily: "var(--font-handwriting)",
+                        fontWeight: 400,
+                        lineHeight: "108%",
+                        letterSpacing: "0%",
+                      }}
+                    >
+                      {product.name}
+                    </span>
+                    <span
+                      className="font-handwriting text-[18px] sm:text-[22px] md:text-[25px] lg:text-[28px] font-normal leading-[108%] tracking-[0%] select-none"
+                      style={{
+                        fontFamily: "var(--font-handwriting)",
+                        fontWeight: 400,
+                        lineHeight: "108%",
+                        letterSpacing: "0%",
+                      }}
+                    >
+                      ${product.price}
+                    </span>
+                  </div>
+
+                  {/* Add to Cart Button (Rectangle 74 shape) */}
                   <button
                     onClick={() => handleAddToCart(product.name)}
-                    className="mt-3 w-full bg-[#E57896] py-1.5 text-xs font-medium text-white shadow-xs transition-colors hover:bg-[#D46080] active:scale-98 cursor-pointer"
-                    style={{ borderRadius: "999px" }}
+                    className="relative w-[70%] max-w-[155px] aspect-[223/44] flex items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer drop-shadow-xs mb-1"
                   >
-                    Add to cart
+                    <Image
+                      src="/browsepage2/Rectangle 74.png"
+                      alt=""
+                      fill
+                      className="object-contain select-none pointer-events-none"
+                    />
+                    <span className="relative z-10 font-handwriting text-[13px] sm:text-[15px] md:text-[16px] text-white tracking-wide select-none drop-shadow-xs">
+                      Add to cart
+                    </span>
                   </button>
                 </div>
               </div>
