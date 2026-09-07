@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdf7f4;
+  --foreground: #241e20;
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-sans);
+  --font-handwriting: var(--font-handwriting);
+  --font-script: var(--font-script);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-sans);
+  --font-handwriting: var(--font-handwriting);
+  --font-script: var(--font-script);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.font-handwriting {
+  font-family: var(--font-handwriting), var(--font-script), cursive, sans-serif;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--tw-rotate, 0deg));
+  }
+  50% {
+    transform: translateY(-8px) rotate(var(--tw-rotate, 0deg));
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--tw-rotate, 0deg));
+  }
+  50% {
+    transform: translateY(8px) rotate(var(--tw-rotate, 0deg));
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+.animate-float-1 {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-reverse 6s ease-in-out infinite 0.5s;
+}
+
+.animate-float-3 {
+  animation: float-slow 5.5s ease-in-out infinite 1s;
+}
+
+.animate-float-4 {
+  animation: float-reverse 6.5s ease-in-out infinite 1.5s;
+}
+
+/* Custom organic card shapes */
+.organic-card-1 {
+  border-radius: 28% 72% 38% 62% / 44% 30% 70% 56%;
+}
+
+.organic-card-2 {
+  border-radius: 68% 32% 34% 66% / 32% 68% 32% 68%;
+}
+
+.organic-card-3 {
+  border-radius: 34% 66% 68% 32% / 62% 38% 62% 38%;
+}
+
+.organic-card-4 {
+  border-radius: 46% 54% 30% 70% / 30% 48% 52% 70%;
+}
+
+/* Scalloped badge simulation */
+.scallop-badge {
+  filter: drop-shadow(0 4px 10px rgba(123, 40, 75, 0.25));
 }
