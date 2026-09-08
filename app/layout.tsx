@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Jost, Architects_Daughter, Patrick_Hand } from "next/font/google";
+import { Playfair_Display, Jost, Architects_Daughter, Patrick_Hand, DM_Sans } from "next/font/google";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -13,6 +13,13 @@ const jost = Jost({
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500"],
 });
 
 const architectsDaughter = Architects_Daughter({
@@ -42,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${jost.variable} ${architectsDaughter.variable} ${patrickHand.variable} scroll-smooth h-full antialiased`}
+      className={`${playfair.variable} ${jost.variable} ${dmSans.variable} ${architectsDaughter.variable} ${patrickHand.variable} scroll-smooth h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-[#FDF7F4] text-[#241E20] selection:bg-[#F2BAC9] selection:text-[#52172C]">
         {children}

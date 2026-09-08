@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Product {
   id: string;
@@ -119,6 +120,7 @@ const FAQS = [
 ];
 
 export default function Home() {
+  const router = useRouter();
   const [cartCount, setCartCount] = useState(0);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -126,8 +128,13 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [addedItem, setAddedItem] = useState<string | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleAddToCart = (productName: string) => {
+    if (!isLoggedIn) {
+      router.push("/login");
+      return;
+    }
     setCartCount((prev) => prev + 1);
     setAddedItem(productName);
     setTimeout(() => setAddedItem(null), 2000);
@@ -169,18 +176,18 @@ export default function Home() {
       )}
 
       {/* Top Header / Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-[#FAF4F0]/85 backdrop-blur-md border-b border-black/5 transition-all">
-        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4 md:px-10">
+      <header className="sticky top-0 z-40 bg-[#FAF4F0]/90 backdrop-blur-md border-b border-black/5 transition-all">
+        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-3.5 md:px-10 lg:px-12">
           {/* Logo */}
           <Link
             href="/"
-            className="font-serif text-[18px] font-bold tracking-[0.15em] text-[#1E1618] hover:opacity-85 transition-opacity"
+            className="font-serif text-[19px] font-bold tracking-[0.16em] text-[#1E1618] hover:opacity-85 transition-opacity"
           >
             VIRELA
           </Link>
 
           {/* Nav Links */}
-          <nav className="hidden items-center gap-8 text-[14px] font-medium text-[#241E20] md:flex">
+          <nav className="hidden items-center gap-9 text-[14px] font-medium text-[#241E20] md:flex">
             <Link href="/" className="transition-colors hover:text-[#B85C7A]">
               Home
             </Link>
@@ -190,20 +197,29 @@ export default function Home() {
             <Link href="#shop" className="transition-colors hover:text-[#B85C7A]">
               Shop
             </Link>
-            <Link href="/design" className="transition-colors hover:text-[#B85C7A]">
+            <Link href="/login" className="transition-colors hover:text-[#B85C7A]">
               Custom
             </Link>
           </nav>
 
           {/* Right Action Badges */}
           <div className="flex items-center gap-3">
-            {/* Store Open Status */}
-            <div className="inline-flex items-center gap-1.5 rounded-md border border-[#16A34A]/25 bg-[#DCFCE7]/90 px-2.5 py-1 text-[11px] font-medium text-[#15803D] shadow-xs">
-              <span className="inline-flex h-3 w-3 items-center justify-center rounded-full bg-[#16A34A] text-[8px] text-white font-bold leading-none">
-                ✓
-              </span>
-              <span>Open — Order Now</span>
-            </div>
+            {/* Conditional Auth vs Status Badge */}
+            {isLoggedIn ? (
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-[#16A34A]/30 bg-[#DCFCE7]/90 px-3 py-1 text-[11px] font-medium text-[#15803D] shadow-xs">
+                <span className="inline-flex h-3 w-3 items-center justify-center rounded-full bg-[#16A34A] text-[8px] text-white font-bold leading-none">
+                  ✓
+                </span>
+                <span>Open — Order Now</span>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-full bg-[#7B284A] px-4 py-1.5 text-[12px] font-medium text-white shadow-xs transition hover:bg-[#68203D] hover:scale-[1.02] active:scale-98"
+              >
+                Sign Up
+              </Link>
+            )}
 
             {/* Shopping Cart Button */}
             <Link
@@ -238,16 +254,17 @@ export default function Home() {
 
       {/* Main Hero Section */}
       <main className="relative mx-auto max-w-[1280px] px-6 md:px-10">
-        <div className="relative h-[640px] w-full md:h-[680px] lg:h-[740px]">
+        <div className="relative h-[620px] w-full md:h-[660px] lg:h-[720px]">
           {/* Floating Craft Cards on Desktop */}
           <div className="pointer-events-none absolute inset-0 hidden md:block">
             {/* Top-Left: Orange Blossom Pom-Pom + Star 12 */}
-            <div className="absolute left-[2%] top-[4%] h-[240px] w-[220px] rotate-[-7deg] drop-shadow-[0_16px_22px_rgba(120,40,60,0.15)] lg:left-[5%] lg:h-[280px] lg:w-[260px] animate-float-1">
+            <div className="absolute left-[2%] top-[4%] h-[240px] w-[220px] rotate-[-7deg] drop-shadow-[0_18px_24px_rgba(120,40,60,0.18)] lg:left-[5%] lg:h-[280px] lg:w-[260px] animate-float-1">
               <Image
                 src="/browsepage1/mask-group.png"
                 alt="Orange pom-pom floral craft"
                 width={400}
                 height={400}
+                unoptimized
                 className="h-full w-full object-contain"
                 priority
               />
@@ -256,18 +273,20 @@ export default function Home() {
                 alt=""
                 width={70}
                 height={70}
+                unoptimized
                 className="absolute -right-[12px] top-[14px] h-[58px] w-[58px] lg:-right-[10px] lg:top-[16px] lg:h-[68px] lg:w-[68px] animate-spin-slow drop-shadow-sm"
                 aria-hidden
               />
             </div>
 
             {/* Top-Right: Deep Berry Tassel Lamp + Scalloped Star 10 */}
-            <div className="absolute right-[3%] top-[5%] h-[250px] w-[230px] rotate-[6deg] drop-shadow-[0_16px_22px_rgba(120,40,60,0.15)] lg:right-[6%] lg:h-[290px] lg:w-[270px] animate-float-2">
+            <div className="absolute right-[3%] top-[5%] h-[250px] w-[230px] rotate-[6deg] drop-shadow-[0_18px_24px_rgba(120,40,60,0.18)] lg:right-[6%] lg:h-[290px] lg:w-[270px] animate-float-2">
               <Image
                 src="/browsepage1/mask-group-1.png"
                 alt="Magenta woven lamp creation"
                 width={400}
                 height={400}
+                unoptimized
                 className="h-full w-full object-contain"
                 priority
               />
@@ -276,18 +295,20 @@ export default function Home() {
                 alt=""
                 width={56}
                 height={56}
+                unoptimized
                 className="absolute left-[8px] top-[14px] h-[48px] w-[48px] lg:left-[10px] lg:top-[16px] lg:h-[56px] lg:w-[56px] animate-spin-slow drop-shadow-sm"
                 aria-hidden
               />
             </div>
 
             {/* Bottom-Left: Pink Woven Bag + Sparkle Star 11 */}
-            <div className="absolute bottom-[6%] left-[3%] h-[230px] w-[215px] rotate-[-4deg] drop-shadow-[0_16px_22px_rgba(120,40,60,0.15)] lg:bottom-[8%] lg:left-[4%] lg:h-[265px] lg:w-[245px] animate-float-3">
+            <div className="absolute bottom-[6%] left-[3%] h-[230px] w-[215px] rotate-[-4deg] drop-shadow-[0_18px_24px_rgba(120,40,60,0.18)] lg:bottom-[8%] lg:left-[4%] lg:h-[265px] lg:w-[245px] animate-float-3">
               <Image
                 src="/browsepage1/mask-group-2.png"
                 alt="Handcrafted woven bag"
                 width={400}
                 height={400}
+                unoptimized
                 className="h-full w-full object-contain"
               />
               <Image
@@ -295,18 +316,20 @@ export default function Home() {
                 alt=""
                 width={56}
                 height={56}
+                unoptimized
                 className="absolute -left-2 top-[18px] h-[48px] w-[48px] lg:-left-2 lg:top-[18px] lg:h-[54px] lg:w-[54px] animate-spin-slow drop-shadow-sm"
                 aria-hidden
               />
             </div>
 
             {/* Bottom-Right: Pastel Pom-Pom Scrunchie + Sparkle Star 13 */}
-            <div className="absolute bottom-[7%] right-[3%] h-[230px] w-[215px] rotate-[7deg] drop-shadow-[0_16px_22px_rgba(120,40,60,0.15)] lg:bottom-[9%] lg:right-[5%] lg:h-[265px] lg:w-[245px] animate-float-4">
+            <div className="absolute bottom-[7%] right-[3%] h-[230px] w-[215px] rotate-[7deg] drop-shadow-[0_18px_24px_rgba(120,40,60,0.18)] lg:bottom-[9%] lg:right-[5%] lg:h-[265px] lg:w-[245px] animate-float-4">
               <Image
                 src="/browsepage1/mask-group-3.png"
                 alt="Pastel pom pom scrunchie"
                 width={400}
                 height={400}
+                unoptimized
                 className="h-full w-full object-contain"
               />
               <Image
@@ -314,6 +337,7 @@ export default function Home() {
                 alt=""
                 width={70}
                 height={70}
+                unoptimized
                 className="absolute right-[16px] -top-1 h-[56px] w-[56px] lg:right-[20px] lg:-top-1 lg:h-[64px] lg:w-[64px] animate-spin-slow drop-shadow-sm"
                 aria-hidden
               />
@@ -330,16 +354,16 @@ export default function Home() {
               <span className="block text-[#1E1618] font-bold">permission to keep</span>
             </h1>
 
-            <p className="mt-5 max-w-[440px] text-[13.5px] font-medium leading-snug text-[#7B2D4B] md:text-[15px]">
+            <p className="mt-5 max-w-[440px] font-handwriting text-[18px] sm:text-[20px] md:text-[22px] leading-snug text-[#7B2D4B]">
               Every VIRELA piece is a small act of
               <br />
               creativity you get to carry with you
             </p>
 
+            {/* Clean Start Order Button - Arrow Removed as requested */}
             <Link
               href="/login"
-              className="mt-7 inline-flex h-12 items-center justify-center rounded-full bg-[#7D2947] px-10 text-[24px] sm:text-[26px] font-normal tracking-wide text-white shadow-lg shadow-[#7D2947]/25 transition hover:bg-[#68203D] hover:scale-105 active:scale-98 select-none"
-              style={{ fontFamily: "var(--font-handwriting)" }}
+              className="mt-7 inline-flex h-12 items-center justify-center rounded-full bg-[#7D2947] px-10 text-[24px] sm:text-[26px] font-normal tracking-wide text-white shadow-lg shadow-[#7D2947]/25 transition hover:bg-[#68203D] hover:scale-105 active:scale-98 select-none font-handwriting"
             >
               Start Order
             </Link>
@@ -349,19 +373,19 @@ export default function Home() {
         {/* Mobile floating gallery showcase */}
         <div className="flex w-full justify-center gap-3 pb-8 md:hidden">
           <div className="h-24 w-24 overflow-hidden rounded-2xl bg-white p-1 shadow-sm">
-            <Image src="/browsepage1/mask-group.png" alt="" width={120} height={120} className="h-full w-full object-contain" />
+            <Image src="/browsepage1/mask-group.png" alt="" width={120} height={120} unoptimized className="h-full w-full object-contain" />
           </div>
           <div className="h-24 w-24 overflow-hidden rounded-2xl bg-white p-1 shadow-sm">
-            <Image src="/browsepage1/mask-group-1.png" alt="" width={120} height={120} className="h-full w-full object-contain" />
+            <Image src="/browsepage1/mask-group-1.png" alt="" width={120} height={120} unoptimized className="h-full w-full object-contain" />
           </div>
           <div className="h-24 w-24 overflow-hidden rounded-2xl bg-white p-1 shadow-sm">
-            <Image src="/browsepage1/mask-group-3.png" alt="" width={120} height={120} className="h-full w-full object-contain" />
+            <Image src="/browsepage1/mask-group-3.png" alt="" width={120} height={120} unoptimized className="h-full w-full object-contain" />
           </div>
         </div>
       </main>
 
-      {/* Story & Philosophy Section ("A little craft , a lot of heart") */}
-      <div id="story" className="relative overflow-hidden bg-[#FFFCF8] px-6 pt-20 pb-16 md:px-10 md:pt-[150px] md:pb-24">
+      {/* Story & Philosophy Section ("A little craft , a lot of heart") & FIND YOUR AESTHETIC */}
+      <div id="story" className="relative overflow-hidden bg-gradient-to-b from-[#FAF4F0] via-[#FFF9EA] to-[#FDE8EC] px-6 pt-16 pb-16 md:px-10 md:pt-[120px] md:pb-24">
         {/* Background flowing curves vector overlay matching Figma Vector 1 */}
         <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[1440px] h-[983px] select-none z-0">
           <Image
@@ -377,7 +401,7 @@ export default function Home() {
 
         <section className="relative mx-auto max-w-[1280px] z-10">
           <div className="flex flex-col items-center gap-10 md:flex-row md:gap-14 lg:gap-20">
-            {/* Story Image Card - Asymmetric Top-Left Arch, No White Border */}
+            {/* Story Image Card - Asymmetric Top-Left Arch */}
             <div className="relative w-full max-w-[460px] md:w-[45%] lg:w-[42%] shrink-0">
               <div className="relative overflow-hidden rounded-tl-[84px] rounded-tr-[28px] rounded-br-[28px] rounded-bl-[28px] shadow-[0_16px_40px_rgba(120,40,60,0.15)] transition-transform duration-500 hover:scale-[1.01]">
                 <Image
@@ -385,73 +409,87 @@ export default function Home() {
                   alt="Two artisans joyfully crocheting handmade creations in the studio"
                   width={580}
                   height={440}
+                  unoptimized
                   className="h-[270px] sm:h-[310px] md:h-[330px] lg:h-[350px] w-full rounded-tl-[84px] rounded-tr-[28px] rounded-br-[28px] rounded-bl-[28px] object-cover"
                 />
               </div>
 
-              {/* Bigger 4-Pointed Sparkle Star on Lower-Left Edge */}
+              {/* Sparkle Star on Lower-Left Edge */}
               <div className="absolute -left-5 md:-left-6 top-[68%] -translate-y-1/2 rotate-[-18deg] z-10">
                 <Image
                   src="/browsepage1/star-12.png"
                   alt=""
                   width={64}
                   height={64}
-                  className="h-13 w-13 md:h-16 md:w-16 lg:h-18 lg:w-18 object-contain drop-shadow-[0_4px_10px_rgba(120,40,60,0.25)]"
+                  unoptimized
+                  className="h-13 w-13 md:h-16 md:w-16 lg:h-18 lg:w-18 object-contain drop-shadow-[0_4px_10px_rgba(120,40,60,0.25)] animate-spin-slow"
                   aria-hidden
                 />
               </div>
 
-              {/* Smaller 4-Pointed Sparkle Star on Top Edge (Towards Middle-Right) */}
+              {/* Sparkle Star on Top Edge */}
               <div className="absolute left-[64%] -top-3.5 md:-top-4 -translate-x-1/2 rotate-[14deg] z-10">
                 <Image
                   src="/browsepage1/star-12.png"
                   alt=""
                   width={36}
                   height={36}
-                  className="h-7.5 w-7.5 md:h-8.5 md:w-8.5 object-contain drop-shadow-[0_3px_8px_rgba(120,40,60,0.2)]"
+                  unoptimized
+                  className="h-7.5 w-7.5 md:h-8.5 md:w-8.5 object-contain drop-shadow-[0_3px_8px_rgba(120,40,60,0.2)] animate-spin-slow"
                   aria-hidden
                 />
               </div>
             </div>
 
-            {/* Story Text & Custom Badge Chips */}
+            {/* Story Text & Custom Non-Button Feature Badges */}
             <div className="w-full md:w-[55%] lg:w-[58%]">
               <h2 className="font-serif text-[34px] sm:text-[40px] md:text-[46px] lg:text-[50px] font-bold leading-[1.12] text-[#B84A6E] tracking-tight">
                 A little craft , a lot of heart
               </h2>
-              <p className="mt-5 max-w-[710px] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] leading-[1.35] text-[#2E1E24]/90 font-normal">
-                At VIRELA, every piece is handmade with intention : scrunchies, jewelry, and creative crafts designed to
-                celebrate individuality. We prioritize thoughtful craftsmanship and honest materials, so every customer feels seen in
-                what they wear.
+
+              {/* Story Section Paragraph with exact Figma typography: DM Sans Light 300, 30px, line-height 111% */}
+              <p className="mt-5 max-w-[680px] font-dm-sans font-light text-[20px] sm:text-[25px] md:text-[30px] leading-[1.11] tracking-normal text-[#2E1E24]/90">
+                At <strong className="font-bold text-[#1E1618]">VIRELA</strong>, every piece begins as an idea at a kitchen table and ends up handmade with intention ; scrunchies, jewelry, and crafts made to celebrate individuality, one at a time.
               </p>
 
-              {/* Feature Chips Row with Scalloped Containers and Handwriting Typography */}
+              {/* Feature Badges - Using rectangle-32.png background and handwriting font matching design */}
               <div className="mt-8 flex flex-wrap items-center gap-7 md:gap-10">
-                {/* Specially Handmade */}
-                <div className="flex items-center gap-3">
-                  <div
-                    className="relative flex h-11 w-9 items-center justify-center shrink-0 bg-[#7B2D4B] drop-shadow-xs transition-transform hover:scale-105"
-                    style={{ borderRadius: "14px 10px 10px 14px / 18px 14px 14px 10px" }}
-                  >
-                    <span className="relative z-10 text-white">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 4.2a2.3 2.3 0 0 0-3.25 0L8 5l-.75-.8A2.3 2.3 0 0 0 4 7.45L8 11.5l4-4.05A2.3 2.3 0 0 0 12 4.2z" fill="none" />
-                        <path d="M2 13.5h5a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H3.5" />
-                        <path d="M9 15.5l3.8-3.2a2 2 0 0 1 2.8 0v0a2 2 0 0 1 0 2.8L12 18.5H6" />
-                      </svg>
-                    </span>
+                {/* Specially Handmade Badge */}
+                <div className="flex items-center gap-3.5 select-none">
+                  <div className="relative flex h-[54px] w-[44px] sm:h-[60px] sm:w-[48px] items-center justify-center shrink-0">
+                    <Image
+                      src="/browsepage2/rectangle-32.png"
+                      alt=""
+                      fill
+                      unoptimized
+                      className="object-contain select-none pointer-events-none drop-shadow-xs"
+                    />
+                    <Image
+                      src="/browsepage2/love.png"
+                      alt=""
+                      width={24}
+                      height={24}
+                      unoptimized
+                      className="relative z-10 h-5 w-5 sm:h-6 sm:w-6 object-contain pointer-events-none"
+                    />
                   </div>
-                  <span className="font-handwriting text-[17px] sm:text-[18px] md:text-[20px] text-[#742644] tracking-wide">Specially Handmade</span>
+                  <span className="font-handwriting text-[22px] sm:text-[25px] md:text-[27px] text-[#7A2846] font-normal tracking-wide select-none">
+                    Specially Handmade
+                  </span>
                 </div>
 
-                {/* Aesthetic Packaging */}
-                <div className="flex items-center gap-3">
-                  <div
-                    className="relative flex h-11 w-9 items-center justify-center shrink-0 bg-[#7B2D4B] drop-shadow-xs transition-transform hover:scale-105"
-                    style={{ borderRadius: "10px 14px 14px 10px / 14px 18px 10px 14px" }}
-                  >
+                {/* Aesthetic Packaging Badge */}
+                <div className="flex items-center gap-3.5 select-none">
+                  <div className="relative flex h-[54px] w-[44px] sm:h-[60px] sm:w-[48px] items-center justify-center shrink-0">
+                    <Image
+                      src="/browsepage2/rectangle-32.png"
+                      alt=""
+                      fill
+                      unoptimized
+                      className="object-contain select-none pointer-events-none drop-shadow-xs"
+                    />
                     <span className="relative z-10 text-white">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 12 20 22 4 22 4 12" />
                         <rect width="20" height="5" x="2" y="7" rx="1" />
                         <line x1="12" x2="12" y1="22" y2="7" />
@@ -460,7 +498,9 @@ export default function Home() {
                       </svg>
                     </span>
                   </div>
-                  <span className="font-handwriting text-[17px] sm:text-[18px] md:text-[20px] text-[#742644] tracking-wide">Aesthetic Packaging</span>
+                  <span className="font-handwriting text-[22px] sm:text-[25px] md:text-[27px] text-[#7A2846] font-normal tracking-wide select-none">
+                    Aesthetic Packaging
+                  </span>
                 </div>
               </div>
             </div>
@@ -468,7 +508,7 @@ export default function Home() {
         </section>
 
         {/* Section: FIND YOUR AESTHETIC */}
-        <section className="relative mx-auto mt-20 max-w-[1280px] md:mt-[280px] lg:mt-[300px] z-10">
+        <section className="relative mx-auto mt-20 max-w-[1280px] md:mt-[220px] lg:mt-[240px] z-10">
           <h2 className="font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
             FIND YOUR AESTHETIC
           </h2>
@@ -476,16 +516,14 @@ export default function Home() {
           {/* 4 Organic Scalloped Masked Category Cards */}
           <div className="mt-8 grid grid-cols-2 gap-5 sm:gap-6 md:grid-cols-4 md:gap-7">
             {CATEGORIES.map((cat, idx) => {
-              const isSelected = activeCategory === cat.id;
               return (
                 <div
                   key={cat.id || idx}
                   onClick={() => setActiveCategory(cat.id === activeCategory ? "all" : cat.id)}
                   className="group relative flex flex-col items-center cursor-pointer transition-transform duration-300 hover:-translate-y-1.5"
                 >
-                  {/* Card Container with Rectangle 9 Mask and Soft Shadow */}
+                  {/* Card Container with Rectangle 9 Mask */}
                   <div className="relative w-full aspect-[260/320] drop-shadow-[0_12px_24px_rgba(120,40,60,0.12)] transition-all duration-300 group-hover:drop-shadow-[0_18px_32px_rgba(120,40,60,0.22)]">
-                    {/* Masked Card Photo with Rectangle 9 */}
                     <div
                       className="relative w-full h-full overflow-hidden bg-white"
                       style={{
@@ -503,24 +541,26 @@ export default function Home() {
                         src={cat.image}
                         alt={cat.label}
                         fill
+                        unoptimized
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 260px"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         priority
                       />
                     </div>
 
-                    {/* Bottom Pill Badge: Rectangle 74 for the bg of the scrunchie text */}
+                    {/* Bottom Pill Badge: Rectangle 74 with handwriting typography */}
                     <div className="absolute bottom-[22px] sm:bottom-[28px] left-1/2 -translate-x-1/2 z-20 w-[84%] max-w-[190px] pointer-events-none drop-shadow-xs transition-transform duration-300 group-hover:scale-105">
                       <div className="relative w-full aspect-[223/44] flex items-center justify-center">
                         <Image
                           src="/browsepage2/Rectangle 74.png"
                           alt=""
                           fill
+                          unoptimized
                           sizes="190px"
                           className="object-contain select-none"
                           priority
                         />
-                        <span className="relative z-10 font-handwriting text-[17px] sm:text-[18px] md:text-[20px] text-white tracking-wide select-none drop-shadow-xs -translate-y-[1px]">
+                        <span className="relative z-10 font-handwriting text-[18px] sm:text-[20px] md:text-[21px] text-white tracking-wide select-none drop-shadow-xs -translate-y-[1px]">
                           {cat.label}
                         </span>
                       </div>
@@ -533,240 +573,236 @@ export default function Home() {
         </section>
       </div>
 
-      {/* FEATURED PIECES (Carousel / Product Showcase) */}
-      <section id="shop" className="relative overflow-hidden bg-[#FDE8EC] px-6 py-14 md:px-10 md:py-20">
-        {/* Background curvy vector */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.3]">
-          <Image src="/browsepage2/vector-1.png" alt="" fill sizes="100vw" className="object-cover object-center" />
+      {/* FEATURED PIECES & WHAT CUSTOMERS ARE SAYING (Shared background with Figma Vector 1) */}
+      <div className="relative overflow-hidden bg-[#FDE8EC]">
+        {/* Continuous Flowing Vector 1 Overlay matching Figma (1440x1737) */}
+        <div className="pointer-events-none absolute inset-0 w-full h-full select-none z-0">
+          <Image
+            src="/browsepage2/Vector 1.png"
+            alt=""
+            fill
+            unoptimized
+            className="w-full h-full object-fill pointer-events-none"
+          />
         </div>
 
-        <div className="relative mx-auto max-w-[1280px]">
-          {/* Header & Carousel Buttons */}
-          <div className="flex items-center justify-between">
-            <h2 className="font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
-              FEATURED PIECES
-            </h2>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={prevSlide}
-                aria-label="Previous featured items"
-                className="relative flex h-10 w-8 sm:h-11 sm:w-9 items-center justify-center bg-white text-[#1E1618] drop-shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-                style={{
-                  clipPath: "url(#scrunchie-clip)",
-                  WebkitClipPath: "url(#scrunchie-clip)",
-                  maskImage: "url('/browsepage2/Rectangle 9.png')",
-                  WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
-                  maskSize: "100% 100%",
-                  WebkitMaskSize: "100% 100%",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskRepeat: "no-repeat",
-                }}
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
-              <button
-                onClick={nextSlide}
-                aria-label="Next featured items"
-                className="relative flex h-10 w-8 sm:h-11 sm:w-9 items-center justify-center bg-white text-[#1E1618] drop-shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-                style={{
-                  clipPath: "url(#scrunchie-clip)",
-                  WebkitClipPath: "url(#scrunchie-clip)",
-                  maskImage: "url('/browsepage2/Rectangle 9.png')",
-                  WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
-                  maskSize: "100% 100%",
-                  WebkitMaskSize: "100% 100%",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskRepeat: "no-repeat",
-                }}
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
+        {/* FEATURED PIECES (Carousel / Product Showcase) */}
+        <section id="shop" className="relative z-10 px-6 py-14 md:px-10 md:py-20">
+          <div className="relative mx-auto max-w-[1280px]">
+            {/* Header & Carousel Buttons */}
+            <div className="flex items-center justify-between">
+              <h2 className="font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
+                FEATURED PIECES
+              </h2>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={prevSlide}
+                  aria-label="Previous featured items"
+                  className="relative flex h-10 w-8 sm:h-11 sm:w-9 items-center justify-center bg-white text-[#1E1618] drop-shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+                  style={{
+                    clipPath: "url(#scrunchie-clip)",
+                    WebkitClipPath: "url(#scrunchie-clip)",
+                    maskImage: "url('/browsepage2/Rectangle 9.png')",
+                    WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
+                    maskSize: "100% 100%",
+                    WebkitMaskSize: "100% 100%",
+                    maskRepeat: "no-repeat",
+                    WebkitMaskRepeat: "no-repeat",
+                  }}
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                </button>
+                <button
+                  onClick={nextSlide}
+                  aria-label="Next featured items"
+                  className="relative flex h-10 w-8 sm:h-11 sm:w-9 items-center justify-center bg-white text-[#1E1618] drop-shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+                  style={{
+                    clipPath: "url(#scrunchie-clip)",
+                    WebkitClipPath: "url(#scrunchie-clip)",
+                    maskImage: "url('/browsepage2/Rectangle 9.png')",
+                    WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
+                    maskSize: "100% 100%",
+                    WebkitMaskSize: "100% 100%",
+                    maskRepeat: "no-repeat",
+                    WebkitMaskRepeat: "no-repeat",
+                  }}
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* Product Grid */}
-          <div className="mt-8 grid grid-cols-2 gap-5 sm:gap-6 md:grid-cols-4 md:gap-7">
-            {FEATURED_PRODUCTS.slice(carouselIndex, carouselIndex + 4).map((product, idx) => (
-              <div
-                key={`${product.id}-${idx}`}
-                className="group relative flex flex-col items-center w-full aspect-[342/493] transition-transform duration-300 hover:-translate-y-1.5"
-              >
-                {/* Outer White Background Card (Rectangle 21) */}
-                <Image
-                  src="/browsepage2/Rectangle 21.png"
-                  alt=""
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 342px"
-                  className="object-contain pointer-events-none select-none drop-shadow-[0_12px_24px_rgba(120,40,60,0.12)]"
-                  priority
-                />
+            {/* Product Grid */}
+            <div className="mt-8 grid grid-cols-2 gap-5 sm:gap-6 md:grid-cols-4 md:gap-7">
+              {FEATURED_PRODUCTS.slice(carouselIndex, carouselIndex + 4).map((product, idx) => (
+                <div
+                  key={`${product.id}-${idx}`}
+                  className="group relative flex flex-col items-center w-full aspect-[342/493] transition-transform duration-300 hover:-translate-y-1.5"
+                >
+                  {/* Outer White Background Card (Rectangle 21) */}
+                  <Image
+                    src="/browsepage2/Rectangle 21.png"
+                    alt=""
+                    fill
+                    unoptimized
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 342px"
+                    className="object-contain pointer-events-none select-none drop-shadow-[0_12px_24px_rgba(120,40,60,0.12)]"
+                    priority
+                  />
 
-                {/* Content inside the White Card */}
-                <div className="relative z-10 flex flex-col items-center justify-between w-full h-full pt-[5%] pb-[4%] px-[5%]">
-                  {/* Inner Masked Product Image (Rectangle 9 mask) */}
-                  <div className="relative w-[90%] aspect-[260/320] drop-shadow-xs mt-1">
-                    <div
-                      className="relative w-full h-full overflow-hidden bg-[#2D0A16]"
-                      style={{
-                        clipPath: "url(#scrunchie-clip)",
-                        WebkitClipPath: "url(#scrunchie-clip)",
-                        maskImage: "url('/browsepage2/Rectangle 9.png')",
-                        WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
-                        maskSize: "100% 100%",
-                        WebkitMaskSize: "100% 100%",
-                        maskRepeat: "no-repeat",
-                        WebkitMaskRepeat: "no-repeat",
-                      }}
+                  {/* Content inside the White Card */}
+                  <div className="relative z-10 flex flex-col items-center justify-between w-full h-full pt-[5%] pb-[4%] px-[5%]">
+                    {/* Inner Masked Product Image */}
+                    <div className="relative w-[90%] aspect-[260/320] drop-shadow-xs mt-1">
+                      <div
+                        className="relative w-full h-full overflow-hidden bg-[#2D0A16]"
+                        style={{
+                          clipPath: "url(#scrunchie-clip)",
+                          WebkitClipPath: "url(#scrunchie-clip)",
+                          maskImage: "url('/browsepage2/Rectangle 9.png')",
+                          WebkitMaskImage: "url('/browsepage2/Rectangle 9.png')",
+                          maskSize: "100% 100%",
+                          WebkitMaskSize: "100% 100%",
+                          maskRepeat: "no-repeat",
+                          WebkitMaskRepeat: "no-repeat",
+                        }}
+                      >
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          fill
+                          unoptimized
+                          sizes="(max-width: 640px) 45vw, (max-width: 1024px) 22vw, 260px"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          priority
+                        />
+                      </div>
+                    </div>
+
+                    {/* Product Title and Price - Explicit handwriting font, crisp sizing */}
+                    <div className="w-[88%] flex items-center justify-between px-1 text-[#1E1618] select-none -mt-1">
+                      <span className="font-handwriting text-[20px] sm:text-[24px] md:text-[26px] font-normal leading-[1.08] select-none text-[#1E1618]">
+                        {product.name}
+                      </span>
+                      <span className="font-handwriting text-[20px] sm:text-[24px] md:text-[26px] font-normal leading-[1.08] select-none text-[#1E1618]">
+                        ${product.price}
+                      </span>
+                    </div>
+
+                    {/* Add to Cart Button */}
+                    <button
+                      onClick={() => handleAddToCart(product.name)}
+                      className="relative w-[70%] max-w-[155px] aspect-[223/44] flex items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer drop-shadow-xs mb-1"
                     >
                       <Image
-                        src={product.image}
-                        alt={product.name}
+                        src="/browsepage2/Rectangle 74.png"
+                        alt=""
                         fill
-                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 22vw, 260px"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        priority
+                        unoptimized
+                        sizes="155px"
+                        className="object-contain select-none pointer-events-none"
                       />
-                    </div>
+                      <span className="relative z-10 font-handwriting text-[14px] sm:text-[16px] text-white tracking-wide select-none drop-shadow-xs">
+                        Add to cart
+                      </span>
+                    </button>
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                  {/* Product Title and Price according to Figma format */}
-                  <div className="w-[88%] flex items-center justify-between px-1 text-[#1E1618] select-none -mt-1">
-                    <span
-                      className="font-handwriting text-[18px] sm:text-[22px] md:text-[25px] lg:text-[28px] font-normal leading-[108%] tracking-[0%] select-none"
-                      style={{
-                        fontFamily: "var(--font-handwriting)",
-                        fontWeight: 400,
-                        lineHeight: "108%",
-                        letterSpacing: "0%",
-                      }}
-                    >
-                      {product.name}
-                    </span>
-                    <span
-                      className="font-handwriting text-[18px] sm:text-[22px] md:text-[25px] lg:text-[28px] font-normal leading-[108%] tracking-[0%] select-none"
-                      style={{
-                        fontFamily: "var(--font-handwriting)",
-                        fontWeight: 400,
-                        lineHeight: "108%",
-                        letterSpacing: "0%",
-                      }}
-                    >
-                      ${product.price}
-                    </span>
-                  </div>
+        {/* WHAT CUSTOMERS ARE SAYING (Testimonials matching LANDING PAGE.png) */}
+        <section className="relative z-10 px-6 py-16 md:px-10 md:py-24">
+          <div className="mx-auto max-w-[1280px]">
+            <h2 className="text-center font-serif text-[20px] sm:text-[24px] md:text-[26px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
+              WHAT CUSTOMERS ARE SAYING
+            </h2>
 
-                  {/* Add to Cart Button (Rectangle 74 shape) */}
-                  <button
-                    onClick={() => handleAddToCart(product.name)}
-                    className="relative w-[70%] max-w-[155px] aspect-[223/44] flex items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer drop-shadow-xs mb-1"
-                  >
-                    <Image
-                      src="/browsepage2/Rectangle 74.png"
-                      alt=""
-                      fill
-                      sizes="155px"
-                      className="object-contain select-none pointer-events-none"
-                    />
-                    <span className="relative z-10 font-handwriting text-[13px] sm:text-[15px] md:text-[16px] text-white tracking-wide select-none drop-shadow-xs">
-                      Add to cart
-                    </span>
-                  </button>
+            <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3 md:items-center">
+              {/* Card 1 - Asymmetric Arch Top-Left */}
+              <div className="group relative w-full h-full py-2">
+                <div
+                  className="relative bg-gradient-to-br from-[#8C8E87] via-[#9E6277] to-[#AC4A69] p-8 sm:p-9 text-center text-white shadow-[0_16px_36px_rgba(135,54,83,0.22)] transition-transform duration-500 ease-out group-hover:-translate-y-2"
+                  style={{ borderRadius: "100px 24px 24px 24px" }}
+                >
+                  {/* Rosette Seal Top Left - positioned on top-left arch curve */}
+                  <Image
+                    src="/browsepage1/star-10.png"
+                    alt=""
+                    width={48}
+                    height={48}
+                    unoptimized
+                    className="absolute left-6 -top-2 h-11 w-11 drop-shadow-md animate-spin-slow"
+                    aria-hidden
+                  />
+                  <p className="font-handwriting text-[20px] sm:text-[22px] leading-relaxed text-white font-normal">
+                    “it feels like getting a gift from a friend who really knows me”
+                  </p>
+                  <p className="mt-6 text-[14px] sm:text-[15px] font-bold uppercase tracking-[0.25em] text-white">
+                    ADEBISI
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* WHAT CUSTOMERS ARE SAYING (Testimonials) */}
-      <section className="px-6 py-16 md:px-10 md:py-24">
-        <div className="mx-auto max-w-[1280px]">
-          <h2 className="text-center font-serif text-[20px] sm:text-[24px] md:text-[26px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
-            WHAT CUSTOMERS ARE SAYING
-          </h2>
+              {/* Card 2 - Staggered Lower Down */}
+              <div className="group relative w-full h-full py-2 md:translate-y-8">
+                <div
+                  className="relative bg-gradient-to-b from-[#8A3D58] to-[#AF4E70] p-8 sm:p-9 text-center text-white shadow-[0_18px_40px_rgba(120,40,66,0.28)] transition-transform duration-500 ease-out group-hover:-translate-y-2"
+                  style={{ borderRadius: "36px 36px 56px 56px" }}
+                >
+                  {/* Rosette Seal Top Center */}
+                  <Image
+                    src="/browsepage1/star-10.png"
+                    alt=""
+                    width={48}
+                    height={48}
+                    unoptimized
+                    className="absolute left-1/2 -top-4 -translate-x-1/2 h-11 w-11 drop-shadow-md animate-spin-slow"
+                    aria-hidden
+                  />
+                  <p className="font-handwriting text-[20px] sm:text-[22px] leading-relaxed text-white font-normal">
+                    “it feels like getting a gift from a friend who really knows me”
+                  </p>
+                  <p className="mt-6 text-[14px] sm:text-[15px] font-bold uppercase tracking-[0.25em] text-white">
+                    DANIEL
+                  </p>
+                </div>
+              </div>
 
-          <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3 md:items-center">
-            {/* Card 1 - Asymmetric Arch Top-Left */}
-            <div
-              className="relative bg-gradient-to-br from-[#8C8E87] via-[#9E6277] to-[#AC4A69] p-8 sm:p-9 text-center text-white shadow-[0_16px_36px_rgba(135,54,83,0.22)] transition hover:-translate-y-1"
-              style={{ borderRadius: "110px 28px 28px 28px" }}
-            >
-              {/* Rosette Seal Top Left */}
-              <Image
-                src="/browsepage1/star-10.png"
-                alt=""
-                width={48}
-                height={48}
-                className="absolute -left-3 -top-3 h-11 w-11 drop-shadow-md"
-                aria-hidden
-              />
-              <p
-                className="text-[19px] sm:text-[21px] md:text-[22px] leading-relaxed text-white font-normal"
-                style={{ fontFamily: "var(--font-handwriting)" }}
-              >
-                “it feels like getting a gift from a friend who really knows me”
-              </p>
-              <p className="mt-6 text-[14px] sm:text-[16px] font-bold uppercase tracking-[0.25em] text-white">
-                ADEBISI
-              </p>
-            </div>
-
-            {/* Card 2 - Staggered Lower Down */}
-            <div
-              className="relative bg-gradient-to-b from-[#8A3D58] to-[#AF4E70] p-8 sm:p-9 text-center text-white shadow-[0_18px_40px_rgba(120,40,66,0.28)] transition hover:-translate-y-1 md:translate-y-8"
-              style={{ borderRadius: "36px 36px 56px 56px" }}
-            >
-              {/* Rosette Seal Top Center */}
-              <Image
-                src="/browsepage1/star-10.png"
-                alt=""
-                width={48}
-                height={48}
-                className="absolute left-1/2 -top-5 -translate-x-1/2 h-11 w-11 drop-shadow-md"
-                aria-hidden
-              />
-              <p
-                className="text-[19px] sm:text-[21px] md:text-[22px] leading-relaxed text-white font-normal"
-                style={{ fontFamily: "var(--font-handwriting)" }}
-              >
-                “it feels like getting a gift from a friend who really knows me”
-              </p>
-              <p className="mt-6 text-[14px] sm:text-[16px] font-bold uppercase tracking-[0.25em] text-white">
-                ADEBISI
-              </p>
-            </div>
-
-            {/* Card 3 - Asymmetric Arch Top-Right */}
-            <div
-              className="relative bg-gradient-to-br from-[#8C8E87] via-[#9E6277] to-[#AC4A69] p-8 sm:p-9 text-center text-white shadow-[0_16px_36px_rgba(135,54,83,0.22)] transition hover:-translate-y-1"
-              style={{ borderRadius: "28px 110px 28px 28px" }}
-            >
-              {/* Rosette Seal Bottom Right */}
-              <Image
-                src="/browsepage1/star-10.png"
-                alt=""
-                width={48}
-                height={48}
-                className="absolute -bottom-3 -right-3 h-11 w-11 drop-shadow-md"
-                aria-hidden
-              />
-              <p
-                className="text-[19px] sm:text-[21px] md:text-[22px] leading-relaxed text-white font-normal"
-                style={{ fontFamily: "var(--font-handwriting)" }}
-              >
-                “it feels like getting a gift from a friend who really knows me”
-              </p>
-              <p className="mt-6 text-[14px] sm:text-[16px] font-bold uppercase tracking-[0.25em] text-white">
-                ADEBISI
-              </p>
+              {/* Card 3 - Asymmetric Arch Top-Right */}
+              <div className="group relative w-full h-full py-2">
+                <div
+                  className="relative bg-gradient-to-br from-[#8C8E87] via-[#9E6277] to-[#AC4A69] p-8 sm:p-9 text-center text-white shadow-[0_16px_36px_rgba(135,54,83,0.22)] transition-transform duration-500 ease-out group-hover:-translate-y-2"
+                  style={{ borderRadius: "24px 100px 24px 24px" }}
+                >
+                  {/* Rosette Seal Bottom Right */}
+                  <Image
+                    src="/browsepage1/star-10.png"
+                    alt=""
+                    width={48}
+                    height={48}
+                    unoptimized
+                    className="absolute -bottom-3 -right-3 h-11 w-11 drop-shadow-md animate-spin-slow"
+                    aria-hidden
+                  />
+                  <p className="font-handwriting text-[20px] sm:text-[22px] leading-relaxed text-white font-normal">
+                    “it feels like getting a gift from a friend who really knows me”
+                  </p>
+                  <p className="mt-6 text-[14px] sm:text-[15px] font-bold uppercase tracking-[0.25em] text-white">
+                    FLORENCE
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Newsletter Signup ("Get first access to new drops") */}
       <section className="px-6 py-14 text-center md:px-10 md:py-20">
@@ -832,6 +868,7 @@ export default function Home() {
                         src="/browsepage1/star-10.png"
                         alt=""
                         fill
+                        unoptimized
                         className={`object-contain select-none transition-all duration-300 ${
                           isOpen ? "brightness-75 contrast-125" : "brightness-105"
                         }`}
@@ -866,118 +903,191 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Rich Plum Footer with Giant Wordmark */}
-      <footer
-        id="contact"
-        className="relative bg-[#9B4461] px-6 pt-16 pb-4 text-white md:px-10 md:pt-20 rounded-t-[48px] md:rounded-t-[64px] overflow-hidden"
-      >
-        {/* Rosette Seal on Top Center Edge */}
-        <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+      {/* Rich Plum Footer Container */}
+      <div className="relative w-full mt-14 z-20">
+        {/* Rosette Seal Floating on Top Center Edge (Unclipped over section above and footer) */}
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
           <Image
             src="/browsepage1/star-10.png"
             alt=""
-            width={56}
-            height={56}
-            className="h-14 w-14 object-contain drop-shadow-md"
+            width={84}
+            height={84}
+            unoptimized
+            className="h-20 w-20 sm:h-22 sm:w-22 object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.22)] animate-spin-slow"
           />
         </div>
 
-        {/* Top Row: Brand, Centered Links, Scalloped Social Badges */}
-        <div className="mx-auto flex max-w-[1280px] flex-col gap-10 md:flex-row md:items-start md:justify-between z-10 relative">
-          {/* Brand Intro */}
-          <div className="max-w-[340px]">
-            <h3 className="font-serif text-[32px] font-bold tracking-tight text-white">Virela</h3>
-            <p className="mt-3 text-[14px] leading-relaxed text-white/90">
-              Aesthetic accessories and creative handmades for people who love beauty in the details
-            </p>
+        <footer
+          id="contact"
+          className="relative bg-[#9B4461] px-6 pt-16 pb-4 text-white md:px-10 md:pt-20 rounded-t-[48px] md:rounded-t-[64px] overflow-hidden"
+        >
+          {/* Full-bleed background wavy vector lines (Vector 7, Vector 3, Vector 5, Vector 6) */}
+          <div className="pointer-events-none absolute inset-0 w-full h-full opacity-70 select-none z-0 overflow-hidden">
+            {/* Main base background curves (Vector 7) */}
+            <Image
+              src="/footer/Vector 7.png"
+              alt=""
+              fill
+              unoptimized
+              className="w-full h-full object-fill pointer-events-none"
+            />
+
+            {/* Vector 3 Overlay (Moved to bottom and shifted 70px right) */}
+            <div className="absolute bottom-[2%] left-[22%] translate-x-[70px] w-[42%] h-[46%] opacity-85 pointer-events-none">
+              <Image
+                src="/footer/Vector 3.png"
+                alt=""
+                fill
+                unoptimized
+                className="object-contain object-bottom pointer-events-none"
+              />
+            </div>
+
+
+
+            {/* Vector 6 Overlay */}
+            <div className="absolute bottom-[0%] left-[8%] w-[48%] h-[75%] opacity-80 pointer-events-none">
+              <Image
+                src="/footer/Vector 6.png"
+                alt=""
+                fill
+                unoptimized
+                className="object-contain object-bottom-left pointer-events-none"
+              />
+            </div>
           </div>
 
-          {/* Centered Navigation Links */}
-          <div className="flex flex-col gap-3 text-[15px] font-medium text-white/95 md:items-center">
-            <Link href="/" className="hover:text-white hover:underline transition-colors">
-              Home
-            </Link>
-            <Link href="#story" className="hover:text-white hover:underline transition-colors">
-              Our Story
-            </Link>
-            <Link href="#shop" className="hover:text-white hover:underline transition-colors">
-              Shop
-            </Link>
-            <Link href="#faq" className="hover:text-white hover:underline transition-colors">
-              FAQ
-            </Link>
-            <Link href="#contact" className="hover:text-white hover:underline transition-colors">
-              Contact
-            </Link>
+          {/* Top Row: Brand, Centered Links, Organic Social Badges */}
+          <div className="mx-auto flex max-w-[1280px] flex-col gap-10 md:flex-row md:items-start md:justify-between z-10 relative">
+            {/* Brand Intro with Figma Proportions */}
+            <div className="max-w-[420px]">
+              <h3 className="font-serif text-[42px] sm:text-[48px] font-bold tracking-tight text-white leading-none">
+                Virela
+              </h3>
+              <p className="mt-4 font-sans text-[17px] sm:text-[18px] md:text-[19px] leading-[1.48] text-white/95 font-normal">
+                Aesthetic accessories and creative handmades for people who love beauty in the details
+              </p>
+            </div>
+
+            {/* Centered Navigation Links (Figma: Home, Our Story, Shop, Contact) */}
+            <div className="flex flex-col gap-3.5 text-[18px] sm:text-[20px] font-medium text-white md:items-center">
+              <Link href="/" className="hover:text-white/80 transition-colors">
+                Home
+              </Link>
+              <Link href="#story" className="hover:text-white/80 transition-colors">
+                Our Story
+              </Link>
+              <Link href="#shop" className="hover:text-white/80 transition-colors">
+                Shop
+              </Link>
+              <Link href="#contact" className="hover:text-white/80 transition-colors">
+                Contact
+              </Link>
+            </div>
+
+            {/* 3 Vertically Stacked Organic White Badges for Social Links matching Figma */}
+            <div className="flex flex-row md:flex-col gap-3.5 items-start">
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="X (Twitter)"
+                className="relative flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center bg-white rounded-[16px] sm:rounded-[18px] shadow-sm transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <span className="relative z-10 text-[#1E1618] font-bold text-[18px] sm:text-[19px]">𝕏</span>
+              </a>
+
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="relative flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center bg-white rounded-[16px] sm:rounded-[18px] shadow-sm transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <span className="relative z-10 text-[#1E1618] font-bold text-[18px] sm:text-[19px]">𝕏</span>
+              </a>
+
+              <a
+                href="https://wa.me"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="WhatsApp"
+                className="relative flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center bg-white rounded-[16px] sm:rounded-[18px] shadow-sm transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <span className="relative z-10 text-[#1E1618] font-bold text-[18px] sm:text-[19px]">𝕏</span>
+              </a>
+            </div>
           </div>
 
-          {/* 3 Vertically Stacked Scalloped Social Badges */}
-          <div className="flex flex-row md:flex-col gap-3.5 items-start">
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="X (Twitter)"
-              className="relative flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-            >
-              <div
-                className="absolute inset-0 bg-white shadow-xs rounded-xl"
-                style={{
-                  clipPath: "url(#scrunchie-clip)",
-                  WebkitClipPath: "url(#scrunchie-clip)",
-                }}
-              />
-              <span className="relative z-10 text-[#1E1618] font-bold text-[16px]">𝕏</span>
-            </a>
+          {/* Giant Script Wordmark with 5 Overlay Stars & Rosettes matching Figma */}
+          <div className="relative mx-auto mt-8 w-full max-w-[1440px] select-none pointer-events-none flex justify-center z-10">
+            <Image
+              src="/footer/Virela.png"
+              alt="Virela"
+              width={1379}
+              height={377}
+              unoptimized
+              className="w-full h-auto max-h-[460px] object-contain object-bottom pointer-events-none"
+              priority
+            />
 
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram"
-              className="relative flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-            >
-              <div
-                className="absolute inset-0 bg-white shadow-xs rounded-xl"
-                style={{
-                  clipPath: "url(#scrunchie-clip)",
-                  WebkitClipPath: "url(#scrunchie-clip)",
-                }}
-              />
-              <span className="relative z-10 text-[#1E1618] font-bold text-[16px]">IG</span>
-            </a>
+            {/* Overlay Star 1: Sparkle Star on bottom of 'V' */}
+            <Image
+              src="/browsepage1/star-12.png"
+              alt=""
+              width={58}
+              height={58}
+              unoptimized
+              className="absolute left-[10%] bottom-[12%] h-12 w-12 sm:h-15 sm:w-15 object-contain pointer-events-none drop-shadow-md animate-spin-slow"
+              aria-hidden
+            />
 
-            <a
-              href="https://wa.me"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="WhatsApp"
-              className="relative flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-            >
-              <div
-                className="absolute inset-0 bg-white shadow-xs rounded-xl"
-                style={{
-                  clipPath: "url(#scrunchie-clip)",
-                  WebkitClipPath: "url(#scrunchie-clip)",
-                }}
-              />
-              <span className="relative z-10 text-[#1E1618] font-bold text-[16px]">WA</span>
-            </a>
+            {/* Overlay Star 2: Pink Rosette Badge on 'i' */}
+            <Image
+              src="/browsepage1/star-10.png"
+              alt=""
+              width={52}
+              height={52}
+              unoptimized
+              className="absolute left-[33.5%] top-[12%] h-11 w-11 sm:h-14 sm:w-14 object-contain pointer-events-none drop-shadow-md animate-spin-slow"
+              aria-hidden
+            />
+
+            {/* Overlay Star 3: Sparkle Star on 'e' */}
+            <Image
+              src="/browsepage1/star-12.png"
+              alt=""
+              width={52}
+              height={52}
+              unoptimized
+              className="absolute left-[64%] top-[22%] h-11 w-11 sm:h-14 sm:w-14 object-contain pointer-events-none drop-shadow-md animate-spin-slow"
+              aria-hidden
+            />
+
+            {/* Overlay Star 4: Pink Rosette Badge on 'l' */}
+            <Image
+              src="/browsepage1/star-10.png"
+              alt=""
+              width={48}
+              height={48}
+              unoptimized
+              className="absolute right-[23.5%] bottom-[12%] h-10 w-10 sm:h-13 sm:w-13 object-contain pointer-events-none drop-shadow-md animate-spin-slow"
+              aria-hidden
+            />
+
+            {/* Overlay Star 5: Sparkle Star on 'a' */}
+            <Image
+              src="/browsepage1/star-13.png"
+              alt=""
+              width={48}
+              height={48}
+              unoptimized
+              className="absolute right-[7%] top-[16%] h-10 w-10 sm:h-13 sm:w-13 object-contain pointer-events-none drop-shadow-md animate-spin-slow"
+              aria-hidden
+            />
           </div>
-        </div>
-
-        {/* Giant Handwritten Script Wordmark Banner */}
-        <div className="relative mx-auto mt-10 w-full max-w-[1440px] select-none pointer-events-none overflow-hidden flex justify-center">
-          <Image
-            src="/browsepage2/footer-wordmark.png"
-            alt="Virela"
-            width={1440}
-            height={473}
-            className="w-full h-auto max-h-[460px] object-contain object-bottom pointer-events-none"
-            priority
-          />
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }
