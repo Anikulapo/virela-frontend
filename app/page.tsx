@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -119,6 +119,13 @@ const FAQS = [
   },
 ];
 
+const NAV_ITEMS = [
+  { id: "hero", label: "Home", href: "#hero" },
+  { id: "story", label: "Our Story", href: "#story" },
+  { id: "shop", label: "Shop", href: "#shop" },
+  { id: "custom", label: "Custom", href: "/login" },
+];
+
 export default function Home() {
   const router = useRouter();
   const [cartCount, setCartCount] = useState(0);
@@ -129,6 +136,29 @@ export default function Home() {
   const [subscribed, setSubscribed] = useState(false);
   const [addedItem, setAddedItem] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("hero");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionIds = ["hero", "story", "shop"];
+      const headerOffset = 160;
+
+      for (const id of [...sectionIds].reverse()) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= headerOffset) {
+            setActiveSection(id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleAddToCart = (productName: string) => {
     if (!isLoggedIn) {
@@ -186,21 +216,35 @@ export default function Home() {
             VIRELA
           </Link>
 
-          {/* Nav Links */}
-          <nav className="hidden items-center gap-9 text-[14px] font-medium text-[#241E20] md:flex">
-            <Link href="/" className="transition-colors hover:text-[#B85C7A]">
-              Home
-            </Link>
-            <Link href="#story" className="transition-colors hover:text-[#B85C7A]">
-              Our Story
-            </Link>
-            <Link href="#shop" className="transition-colors hover:text-[#B85C7A]">
-              Shop
-            </Link>
-            <Link href="/login" className="transition-colors hover:text-[#B85C7A]">
-              Custom
-            </Link>
+          {/* Nav Links with Animated Active Section Highlighting */}
+          <nav className="hidden items-center gap-1.5 text-[14px] font-medium text-[#241E20] md:flex">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  onClick={() => {
+                    if (item.href.startsWith("#")) {
+                      setActiveSection(item.id);
+                    }
+                  }}
+                  className={`relative px-4 py-1.5 rounded-full transition-all duration-300 ${
+                    isActive
+                      ? "text-[#7B284A] font-semibold bg-[#7B284A]/10 shadow-2xs scale-[1.02]"
+                      : "text-[#241E20]/80 hover:text-[#B85C7A] hover:bg-black/5"
+                  }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[2.5px] bg-[#7B284A] rounded-full transition-all duration-300" />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
+
+          {/* Right Action Badges */}
 
           {/* Right Action Badges */}
           <div className="flex items-center gap-3">
@@ -253,7 +297,7 @@ export default function Home() {
       </header>
 
       {/* Main Hero Section */}
-      <main className="relative mx-auto max-w-[1280px] px-6 md:px-10">
+      <main id="hero" className="relative mx-auto max-w-[1280px] px-6 md:px-10">
         <div className="relative h-[620px] w-full md:h-[660px] lg:h-[720px]">
           {/* Floating Craft Cards on Desktop */}
           <div className="pointer-events-none absolute inset-0 hidden md:block">
