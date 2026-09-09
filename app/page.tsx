@@ -123,7 +123,7 @@ const NAV_ITEMS = [
   { id: "hero", label: "Home", href: "#hero" },
   { id: "story", label: "Our Story", href: "#story" },
   { id: "shop", label: "Shop", href: "#shop" },
-  { id: "custom", label: "Custom", href: "/login" },
+  { id: "faq", label: "FAQ", href: "#faq" },
 ];
 
 export default function Home() {
@@ -140,7 +140,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sectionIds = ["hero", "story", "shop"];
+      const sectionIds = ["hero", "story", "shop", "faq"];
       const headerOffset = 160;
 
       for (const id of [...sectionIds].reverse()) {
@@ -487,7 +487,7 @@ export default function Home() {
 
             {/* Story Text & Custom Non-Button Feature Badges */}
             <div className="w-full md:w-[55%] lg:w-[58%]">
-              <h2 className="font-serif text-[34px] sm:text-[40px] md:text-[46px] lg:text-[50px] font-bold leading-[1.12] text-[#B84A6E] tracking-tight">
+              <h2 className="font-fraunces text-[34px] sm:text-[40px] md:text-[46px] lg:text-[50px] font-bold leading-[1.12] text-[#B84A6E] tracking-tight">
                 A little craft , a lot of heart
               </h2>
 
@@ -553,8 +553,8 @@ export default function Home() {
 
         {/* Section: FIND YOUR AESTHETIC */}
         <section className="relative mx-auto mt-20 max-w-[1280px] md:mt-[220px] lg:mt-[240px] z-10">
-          <h2 className="font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
-            FIND YOUR AESTHETIC
+          <h2 className="font-fraunces text-[28px] sm:text-[38px] md:text-[52px] font-semibold leading-[1.08] tracking-normal text-[#1E1618]">
+            Find Your Aesthetic
           </h2>
 
           {/* 4 Organic Scalloped Masked Category Cards */}
@@ -635,8 +635,8 @@ export default function Home() {
           <div className="relative mx-auto max-w-[1280px]">
             {/* Header & Carousel Buttons */}
             <div className="flex items-center justify-between">
-              <h2 className="font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
-                FEATURED PIECES
+              <h2 className="font-fraunces text-[28px] sm:text-[38px] md:text-[52px] font-semibold leading-[1.08] tracking-normal text-[#1E1618]">
+                Featured Pieces
               </h2>
               <div className="flex items-center gap-3">
                 <button
@@ -764,7 +764,7 @@ export default function Home() {
         {/* WHAT CUSTOMERS ARE SAYING (Testimonials matching LANDING PAGE.png) */}
         <section className="relative z-10 px-6 py-16 md:px-10 md:py-24">
           <div className="mx-auto max-w-[1280px]">
-            <h2 className="text-center font-serif text-[20px] sm:text-[24px] md:text-[26px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
+            <h2 className="text-center font-fraunces text-[20px] sm:text-[24px] md:text-[26px] font-bold uppercase tracking-[0.2em] text-[#1E1618]">
               WHAT CUSTOMERS ARE SAYING
             </h2>
 
@@ -889,7 +889,7 @@ export default function Home() {
       {/* Frequently Asked Questions (FAQ) */}
       <section id="faq" className="px-6 py-14 md:px-10 md:py-20">
         <div className="mx-auto max-w-[880px]">
-          <h2 className="text-center font-serif text-[28px] sm:text-[34px] md:text-[38px] font-bold text-[#B84A6E]">
+          <h2 className="text-center font-fraunces text-[28px] sm:text-[34px] md:text-[38px] font-bold text-[#B84A6E]">
             Frequently Asked Questions
           </h2>
 
@@ -1013,7 +1013,7 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Centered Navigation Links (Figma: Home, Our Story, Shop, Contact) */}
+            {/* Centered Navigation Links (Home, Our Story, Shop, FAQ) */}
             <div className="flex flex-col gap-3.5 text-[18px] sm:text-[20px] font-medium text-white md:items-center">
               <Link href="/" className="hover:text-white/80 transition-colors">
                 Home
@@ -1024,8 +1024,8 @@ export default function Home() {
               <Link href="#shop" className="hover:text-white/80 transition-colors">
                 Shop
               </Link>
-              <Link href="#contact" className="hover:text-white/80 transition-colors">
-                Contact
+              <Link href="#faq" className="hover:text-white/80 transition-colors">
+                FAQ
               </Link>
             </div>
 
